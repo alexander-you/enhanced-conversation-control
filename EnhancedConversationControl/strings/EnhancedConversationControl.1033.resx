@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+
+  <!-- ==================== Manifest display names ==================== -->
+  <data name="PCF_EnhancedConversationControl_Display" xml:space="preserve">
+    <value>Enhanced Conversation Control</value>
+  </data>
+  <data name="PCF_EnhancedConversationControl_Desc" xml:space="preserve">
+    <value>Displays enhanced conversation details for Omnichannel conversations</value>
+  </data>
+  <data name="PCF_Property_Display" xml:space="preserve">
+    <value>Enhanced Conversation Control Field</value>
+  </data>
+  <data name="PCF_Property_Desc" xml:space="preserve">
+    <value>Binding anchor field for the Enhanced Conversation Control</value>
+  </data>
+
+  <!-- ==================== Channel labels ==================== -->
+  <data name="Label_LiveChat" xml:space="preserve">
+    <value>Live Chat</value>
+  </data>
+  <data name="Label_Voice" xml:space="preserve">
+    <value>Voice</value>
+  </data>
+  <data name="Label_VoiceCallback" xml:space="preserve">
+    <value>Voice Callback</value>
+  </data>
+  <data name="Label_Unknown" xml:space="preserve">
+    <value>Unknown</value>
+  </data>
+
+  <!-- ==================== Status labels ==================== -->
+  <data name="Label_Active" xml:space="preserve">
+    <value>Active</value>
+  </data>
+  <data name="Label_Waiting" xml:space="preserve">
+    <value>Waiting</value>
+  </data>
+  <data name="Label_Closed" xml:space="preserve">
+    <value>Closed</value>
+  </data>
+  <data name="Label_WrapUp" xml:space="preserve">
+    <value>Wrap-up</value>
+  </data>
+  <data name="Label_Resolved" xml:space="preserve">
+    <value>Resolved</value>
+  </data>
+  <data name="Label_Open" xml:space="preserve">
+    <value>Open</value>
+  </data>
+
+  <!-- ==================== Header ==================== -->
+  <data name="Label_UnknownCustomer" xml:space="preserve">
+    <value>Unknown Customer</value>
+  </data>
+  <data name="Label_Today" xml:space="preserve">
+    <value>Today</value>
+  </data>
+  <data name="Aria_ConversationDetails" xml:space="preserve">
+    <value>Conversation details</value>
+  </data>
+
+  <!-- ==================== Transcript panel ==================== -->
+  <data name="Label_Transcript" xml:space="preserve">
+    <value>Transcript</value>
+  </data>
+  <data name="Label_VoiceTranscript" xml:space="preserve">
+    <value>Voice Transcript</value>
+  </data>
+  <data name="Label_TranscriptNotAvailable" xml:space="preserve">
+    <value>Transcript not available</value>
+  </data>
+  <data name="Label_VoiceTranscriptNotAvailable" xml:space="preserve">
+    <value>Voice transcript not available</value>
+  </data>
+  <data name="Aria_ConversationTranscript" xml:space="preserve">
+    <value>Conversation transcript</value>
+  </data>
+
+  <!-- ==================== Copilot summary ==================== -->
+  <data name="Label_CopilotSummary" xml:space="preserve">
+    <value>Copilot Summary</value>
+  </data>
+  <data name="Label_AI" xml:space="preserve">
+    <value>AI</value>
+  </data>
+
+  <!-- ==================== Tags ==================== -->
+  <data name="Label_TagsKeywords" xml:space="preserve">
+    <value>Tags &amp; Keywords</value>
+  </data>
+
+  <!-- ==================== Journey ==================== -->
+  <data name="Label_ConversationJourney" xml:space="preserve">
+    <value>Conversation Journey</value>
+  </data>
+  <data name="Label_Session" xml:space="preserve">
+    <value>Session</value>
+  </data>
+  <data name="Label_LessThan1Min" xml:space="preserve">
+    <value>&lt; 1 min</value>
+  </data>
+  <data name="Label_InitialCall" xml:space="preserve">
+    <value>Initial Call</value>
+  </data>
+  <data name="Label_Escalation" xml:space="preserve">
+    <value>Escalation</value>
+  </data>
+  <data name="Label_Transfer" xml:space="preserve">
+    <value>Transfer</value>
+  </data>
+  <data name="Label_SentimentPositive" xml:space="preserve">
+    <value>↑ Positive</value>
+  </data>
+  <data name="Label_SentimentNegative" xml:space="preserve">
+    <value>↓ Negative</value>
+  </data>
+  <data name="Label_SentimentNeutral" xml:space="preserve">
+    <value>– Neutral</value>
+  </data>
+  <data name="Label_JourneyExpand" xml:space="preserve">
+    <value>Expand</value>
+  </data>
+  <data name="Label_JourneyCollapse" xml:space="preserve">
+    <value>Collapse</value>
+  </data>
+  <data name="Label_TotalDuration" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="Label_BotSession" xml:space="preserve">
+    <value>Bot Session</value>
+  </data>
+  <data name="Label_TransferDeclined" xml:space="preserve">
+    <value>Transfer Declined</value>
+  </data>
+  <data name="Label_NeverAccepted" xml:space="preserve">
+    <value>Never accepted</value>
+  </data>
+  <data name="Label_SessionInitial" xml:space="preserve">
+    <value>Initial</value>
+  </data>
+  <data name="Label_SessionTransfer" xml:space="preserve">
+    <value>Transfer</value>
+  </data>
+  <data name="Label_SessionDeclined" xml:space="preserve">
+    <value>Declined</value>
+  </data>
+  <data name="Label_SessionClosed" xml:space="preserve">
+    <value>Closed</value>
+  </data>
+  <data name="Label_SessionTransferred" xml:space="preserve">
+    <value>Transferred</value>
+  </data>
+  <data name="Label_WrapUpStarted" xml:space="preserve">
+    <value>Wrap-up started</value>
+  </data>
+  <data name="Label_QueuedIn" xml:space="preserve">
+    <value>Routed to:</value>
+  </data>
+  <data name="Label_QueueWait" xml:space="preserve">
+    <value>Queue wait:</value>
+  </data>
+  <data name="Label_ConsultJoined" xml:space="preserve">
+    <value>Consult:</value>
+  </data>
+  <data name="Label_ConsultTransferred" xml:space="preserve">
+    <value>→ Transferred to</value>
+  </data>
+
+  <!-- ==================== Call metrics ====================-->
+  <data name="Label_CallMetrics" xml:space="preserve">
+    <value>Call Metrics</value>
+  </data>
+  <data name="Label_Duration" xml:space="preserve">
+    <value>Duration</value>
+  </data>
+  <data name="Label_TalkSpeed" xml:space="preserve">
+    <value>Talk Speed</value>
+  </data>
+  <data name="Label_Switches" xml:space="preserve">
+    <value>Switches</value>
+  </data>
+  <data name="Label_AvgPause" xml:space="preserve">
+    <value>Avg Pause</value>
+  </data>
+  <data name="Label_TalkListenRatio" xml:space="preserve">
+    <value>Talk / Listen Ratio</value>
+  </data>
+  <data name="Label_OverallSentiment" xml:space="preserve">
+    <value>Overall Sentiment</value>
+  </data>
+  <data name="Label_WordsPerMin" xml:space="preserve">
+    <value>w/m</value>
+  </data>
+
+  <!-- ==================== Audio player ==================== -->
+  <data name="Label_Play" xml:space="preserve">
+    <value>Play</value>
+  </data>
+  <data name="Label_Pause" xml:space="preserve">
+    <value>Pause</value>
+  </data>
+  <data name="Aria_Play" xml:space="preserve">
+    <value>Play audio</value>
+  </data>
+  <data name="Aria_Pause" xml:space="preserve">
+    <value>Pause audio</value>
+  </data>
+  <data name="Aria_DownloadAudio" xml:space="preserve">
+    <value>Download audio recording</value>
+  </data>
+  <data name="Aria_DownloadTranscript" xml:space="preserve">
+    <value>Download voice transcript</value>
+  </data>
+  <data name="Label_DownloadAudio" xml:space="preserve">
+    <value>Download Audio</value>
+  </data>
+  <data name="Label_DownloadTranscript" xml:space="preserve">
+    <value>Download Transcript</value>
+  </data>
+  <data name="Aria_AudioPlayer" xml:space="preserve">
+    <value>Audio player</value>
+  </data>
+  <data name="Aria_PlaybackSpeed" xml:space="preserve">
+    <value>Playback speed</value>
+  </data>
+  <data name="Aria_SeekAudio" xml:space="preserve">
+    <value>Seek audio position</value>
+  </data>
+
+  <!-- ==================== Search & AI Insights ==================== -->
+  <data name="Label_AIInsights" xml:space="preserve">
+    <value>AI Insights</value>
+  </data>
+  <data name="Label_SearchPlaceholder" xml:space="preserve">
+    <value>Search transcript...</value>
+  </data>
+  <data name="Label_SearchOf" xml:space="preserve">
+    <value>of</value>
+  </data>
+  <data name="Label_NoInsights" xml:space="preserve">
+    <value>No insights available for this conversation.</value>
+  </data>
+  <data name="Label_NoMatches" xml:space="preserve">
+    <value>No matches</value>
+  </data>
+
+  <!-- ==================== Loading / errors ==================== -->
+  <data name="Label_Loading" xml:space="preserve">
+    <value>Loading conversation data</value>
+  </data>
+  <data name="Error_NoId" xml:space="preserve">
+    <value>No conversation ID available in this context.</value>
+  </data>
+  <data name="Error_Failed" xml:space="preserve">
+    <value>Failed to load conversation</value>
+  </data>
+
+  <!-- ==================== Insights Dashboard ==================== -->
+  <data name="Label_Insights" xml:space="preserve">
+    <value>Insights</value>
+  </data>
+  <data name="Label_ConversationInsights" xml:space="preserve">
+    <value>Conversation Insights</value>
+  </data>
+  <data name="Label_InsightsTiming" xml:space="preserve">
+    <value>Timing</value>
+  </data>
+  <data name="Label_InsightsRouting" xml:space="preserve">
+    <value>Routing</value>
+  </data>
+  <data name="Label_InsightsQuality" xml:space="preserve">
+    <value>AI / Voice Quality</value>
+  </data>
+  <data name="Label_InsightsParticipants" xml:space="preserve">
+    <value>Participants</value>
+  </data>
+  <data name="Label_QueueWaitTime" xml:space="preserve">
+    <value>Queue Wait</value>
+  </data>
+  <data name="Label_TalkTime" xml:space="preserve">
+    <value>Talk Time</value>
+  </data>
+  <data name="Label_HoldTime" xml:space="preserve">
+    <value>Hold Time</value>
+  </data>
+  <data name="Label_WrapUpTime" xml:space="preserve">
+    <value>Wrap-up</value>
+  </data>
+  <data name="Label_HandleTime" xml:space="preserve">
+    <value>Handle Time</value>
+  </data>
+  <data name="Label_SessionsCount" xml:space="preserve">
+    <value>Sessions</value>
+  </data>
+  <data name="Label_Transfers" xml:space="preserve">
+    <value>Transfers</value>
+  </data>
+  <data name="Label_EscalationsCount" xml:space="preserve">
+    <value>Escalations</value>
+  </data>
+  <data name="Label_DeclinedCount" xml:space="preserve">
+    <value>Declined</value>
+  </data>
+  <data name="Label_AgentTalkRatio" xml:space="preserve">
+    <value>Agent Talk Ratio</value>
+  </data>
+  <data name="Label_SpeakingPace" xml:space="preserve">
+    <value>Speaking Pace</value>
+  </data>
+  <data name="Label_LongestMonologue" xml:space="preserve">
+    <value>Longest Monologue</value>
+  </data>
+  <data name="Label_ConvSwitches" xml:space="preserve">
+    <value>Conv. Switches</value>
+  </data>
+
+</root>

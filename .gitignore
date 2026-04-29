@@ -1,0 +1,33 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+
+# generated directory
+**/generated
+
+# output directory
+/out
+
+# msbuild output directories
+/bin
+/obj
+
+# MSBuild Binary and Structured Log
+*.binlog
+
+# Visual Studio cache/options directory
+/.vs
+
+# macos
+.DS_Store
+
+# Design mockups & preparation materials (not part of the solution)
+/UI-UX
+/datafile
+/docs/Phase1
+/docs/07-journey-enrichment-implementation.md
+/docs/PCF Controls for Model-Driven Apps.docx
+/docs/PCF*Controls*.docx
+/docs/Query Results.txt
+/docs/insights_new.json

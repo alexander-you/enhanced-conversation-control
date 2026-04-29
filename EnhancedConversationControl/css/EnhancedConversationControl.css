@@ -1,0 +1,1553 @@
+/* =====================================================================
+   Enhanced Conversation Control — Scoped CSS
+   All selectors prefixed with .alex-ecc
+   ===================================================================== */
+
+.alex-ecc {
+    --bg-page: #E8EDF5;
+    --white: #FFFFFF;
+    --smoke: #F5F7FA;
+    --border: #E2E8F0;
+    --txt-main: #1A202C;
+    --txt-sec: #4A5568;
+    --txt-mute: #A0AEC0;
+
+    --azure: #3B82F6;
+    --azure-soft: #EFF6FF;
+    --emerald: #10B981;
+    --emerald-soft: #ECFDF5;
+    --amber: #F59E0B;
+    --amber-soft: #FFFBEB;
+    --ruby: #EF4444;
+    --ruby-soft: #FEF2F2;
+    --purple: #8B5CF6;
+    --purple-soft: #F5F3FF;
+
+    --sh-card: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+    --sh-bubble: 0 1px 3px rgba(0,0,0,0.1);
+
+    font-family: 'Segoe UI', 'Assistant', 'Noto Sans Hebrew', 'Arial Hebrew', 'Noto Sans Arabic', system-ui, sans-serif;
+    color: var(--txt-main);
+}
+
+.alex-ecc * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* --- CONTAINER --- */
+.alex-ecc.pcf-container {
+    width: 100%;
+    /* No max-width — fill the full form column width */
+    background: var(--white);
+    border-radius: 16px;
+    box-shadow: var(--sh-card);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    /* height and width are set inline via containerStyle */
+}
+
+/* --- LOADING & ERROR --- */
+.alex-ecc.pcf-container.loading,
+.alex-ecc.pcf-container.error {
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+    padding: 40px;
+    /* Ensure spinner is truly centered when height is provided */
+    display: flex;
+    flex-direction: column;
+}
+
+.alex-ecc .spinner {
+    width: 36px;
+    height: 36px;
+    border: 3px solid var(--border);
+    border-top-color: var(--azure);
+    border-radius: 50%;
+    animation: ecc-spin 0.8s linear infinite;
+}
+
+@keyframes ecc-spin {
+    to { transform: rotate(360deg); }
+}
+
+/* --- HEADER --- */
+.alex-ecc .pcf-header {
+    padding: 24px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+    gap: 12px;
+    flex-shrink: 0; /* never shrink — header is sticky */
+}
+
+.alex-ecc .user-profile {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.alex-ecc .avatar-circle {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--azure-soft);
+    color: var(--azure);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 16px;
+    flex-shrink: 0;
+}
+
+.alex-ecc .user-details h2 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+
+.alex-ecc .user-details p {
+    font-size: 13px;
+    color: var(--txt-sec);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.alex-ecc .health-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.alex-ecc .health-dot.open {
+    background: var(--emerald);
+    box-shadow: 0 0 6px var(--emerald);
+}
+
+.alex-ecc .health-dot.closed {
+    background: var(--txt-mute);
+}
+
+.alex-ecc .header-pills {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.alex-ecc .pill {
+    padding: 6px 14px;
+    border-radius: 100px;
+    font-size: 11px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.alex-ecc .pill-blue {
+    background: var(--azure);
+    color: white;
+}
+
+.alex-ecc .pill-green {
+    background: var(--emerald-soft);
+    color: var(--emerald);
+}
+
+.alex-ecc .pill-amber {
+    background: var(--amber);
+    color: white;
+}
+
+.alex-ecc .pill-light-green {
+    background: var(--emerald);
+    color: white;
+}
+
+/* --- CONTENT GRID --- */
+.alex-ecc .content-grid {
+    display: flex;
+    flex: 1;
+    min-height: 0; /* CRITICAL: allows flex child to shrink below content height */
+    overflow: hidden;
+}
+
+/* --- TRANSCRIPT --- */
+.alex-ecc .transcript {
+    flex: 1;
+    min-height: 0; /* CRITICAL: allows inner scroll to work */
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid var(--border);
+    overflow: hidden;
+}
+
+.alex-ecc .transcript-header {
+    padding: 12px 24px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.alex-ecc .transcript-header h3 {
+    font-size: 11px;
+    color: var(--txt-mute);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Chat flow */
+.alex-ecc .chat-flow {
+    flex: 1;
+    min-height: 0; /* CRITICAL: allows this flex child to scroll */
+    overflow-y: auto;
+    padding: 24px;
+    background: #FAFAFB;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.alex-ecc .chat-flow::-webkit-scrollbar { width: 5px; }
+.alex-ecc .chat-flow::-webkit-scrollbar-thumb {
+    background: #CBD5E0;
+    border-radius: 10px;
+}
+
+.alex-ecc .message-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    max-width: 80%;
+}
+
+.alex-ecc .message-group.agent {
+    align-self: flex-end;
+    align-items: flex-end;
+}
+
+.alex-ecc .message-group.customer {
+    align-self: flex-start;
+    align-items: flex-start;
+}
+
+.alex-ecc .message-group.system-msg {
+    align-self: center;
+}
+
+.alex-ecc .msg-info {
+    font-size: 11px;
+    color: var(--txt-mute);
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.alex-ecc .bubble {
+    padding: 12px 16px;
+    border-radius: 18px;
+    font-size: 14px;
+    line-height: 1.5;
+    box-shadow: var(--sh-bubble);
+    word-break: break-word;
+}
+
+.alex-ecc .customer .bubble {
+    background: white;
+    border-bottom-left-radius: 4px;
+    border: 1px solid #edf2f7;
+}
+
+.alex-ecc .agent .bubble {
+    background: #F0F4FF;
+    color: var(--txt-main);
+    border-bottom-right-radius: 4px;
+}
+
+.alex-ecc .event-divider {
+    align-self: center;
+    background: #EDF2F7;
+    padding: 4px 16px;
+    border-radius: 100px;
+    font-size: 11px;
+    color: var(--txt-sec);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 10px 0;
+    text-align: center;
+}
+
+/* Empty/unavailable state */
+.alex-ecc .transcript-empty {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--txt-mute);
+    font-size: 13px;
+    padding: 40px;
+    text-align: center;
+}
+
+/* Voice transcript */
+.alex-ecc .voice-transcript {
+    flex: 1;
+    min-height: 0; /* CRITICAL: allows scroll within flex chain */
+    overflow-y: auto;
+    padding: 24px;
+    background: #FAFAFB;
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--txt-sec);
+    white-space: pre-wrap;
+}
+
+/* --- SIDEBAR --- */
+.alex-ecc .sidebar {
+    width: 380px;
+    flex-shrink: 0;
+    min-height: 0; /* CRITICAL: allows sidebar to shrink and scroll within container */
+    display: flex;
+    flex-direction: column;
+    background: var(--white);
+    overflow-y: auto;
+}
+
+.alex-ecc .sidebar::-webkit-scrollbar { width: 5px; }
+.alex-ecc .sidebar::-webkit-scrollbar-thumb {
+    background: #CBD5E0;
+    border-radius: 10px;
+}
+
+.alex-ecc .sidebar-section {
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--border);
+}
+
+.alex-ecc .sidebar-section:last-child {
+    border-bottom: none;
+    flex: 1;
+}
+
+.alex-ecc .section-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 11px;
+    font-weight: 800;
+    color: #6366f1;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    letter-spacing: 0.5px;
+}
+
+.alex-ecc .section-title-inner {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.alex-ecc .section-title .ai-badge {
+    background: var(--azure-soft);
+    color: var(--azure);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 10px;
+}
+
+/* Copilot logo in sidebar section title */
+.alex-ecc .sidebar-copilot-logo {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+/* Collapse/expand chevron button */
+.alex-ecc .collapse-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #6366f1;
+    font-size: 18px;
+    line-height: 1;
+    padding: 0 2px;
+    transform: rotate(90deg); /* › pointing down = expanded */
+    transition: transform 0.2s ease;
+    display: flex;
+    align-items: center;
+}
+
+.alex-ecc .collapse-btn.expanded {
+    transform: rotate(-90deg); /* › pointing up = collapse */
+}
+
+/* Copilot summary section — no bottom padding when collapsed */
+.alex-ecc .summary-section {
+    padding-bottom: 0;
+}
+
+/* Summary body: rendered markdown HTML */
+.alex-ecc .summary-body {
+    padding-bottom: 16px;
+}
+
+.alex-ecc .summary-body p {
+    font-size: 13px;
+    line-height: 1.65;
+    color: var(--txt-sec);
+    margin-bottom: 10px;
+}
+
+.alex-ecc .summary-body p:last-child {
+    margin-bottom: 0;
+}
+
+.alex-ecc .summary-body strong {
+    font-weight: 700;
+    color: var(--txt-main);
+}
+
+.alex-ecc .summary-body em {
+    font-style: italic;
+}
+
+/* Copilot summary — old bullet-list styles kept for backward compat but no longer primary */
+.alex-ecc .summary-list {
+    list-style: none;
+}
+
+.alex-ecc .summary-item {
+    font-size: 12px;
+    line-height: 1.6;
+    color: var(--txt-sec);
+    margin-bottom: 12px;
+    display: flex;
+    gap: 10px;
+}
+
+.alex-ecc .bullet {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-top: 5px;
+    flex-shrink: 0;
+}
+
+.alex-ecc .summary-section-heading {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--txt-main);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+    margin-top: 12px;
+}
+
+.alex-ecc .summary-section-heading:first-child {
+    margin-top: 0;
+}
+
+/* Tags */
+.alex-ecc .tag-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.alex-ecc .tag {
+    padding: 6px 12px;
+    border-radius: 100px;
+    font-size: 11px;
+    font-weight: 600;
+    background: var(--azure-soft);
+    color: var(--azure);
+    border: 1px solid transparent;
+}
+
+.alex-ecc .tag-purple {
+    background: var(--purple-soft);
+    color: var(--purple);
+}
+
+/* Journey */
+.alex-ecc .journey {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    position: relative;
+    padding-inline-start: 10px;  /* flips automatically with dir="rtl" */
+}
+
+/* Single continuous connector line — runs behind all icons from first to last */
+.alex-ecc .journey::before {
+    content: '';
+    position: absolute;
+    inset-inline-start: 23px;  /* padding-inline-start(10) + icon half-width(14) - 1 = 23px; flips in RTL */
+    top: 14px;        /* center of first icon */
+    bottom: 14px;     /* center of last icon */
+    width: 2px;
+    background: #E2E8F0;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.alex-ecc .j-item {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    position: relative;
+}
+
+/* Icon column: sits above the connector line via z-index */
+.alex-ecc .j-icon-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+    width: 28px;
+    position: relative;
+    z-index: 1;
+}
+
+.alex-ecc .j-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: white;
+    border: 2px solid #E2E8F0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 12px;
+    overflow: hidden;
+}
+
+/* Sentiment-colored icon variants */
+.alex-ecc .j-icon--positive {
+    background: #ECFDF5;
+    border-color: #6EE7B7;
+    color: #059669;
+}
+
+.alex-ecc .j-icon--negative {
+    background: #FEF2F2;
+    border-color: #FCA5A5;
+    color: #DC2626;
+}
+
+.alex-ecc .j-icon--neutral {
+    background: var(--azure-soft);
+    border-color: var(--azure);
+    color: var(--azure);
+}
+
+/* Active session pulse */
+.alex-ecc .j-active .j-icon {
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+/* Journey card body */
+.alex-ecc .j-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding-top: 3px;
+}
+
+.alex-ecc .j-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.alex-ecc .j-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--txt-main);
+}
+
+.alex-ecc .j-agent {
+    font-size: 11px;
+    color: var(--txt-sec);
+}
+
+/* Agent avatar row (profile photo + name) */
+.alex-ecc .j-agent-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 3px;
+}
+
+.alex-ecc .j-agent-avatar {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+    background: var(--azure-soft);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.alex-ecc .j-agent-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.alex-ecc .j-agent-initials {
+    font-size: 7px;
+    font-weight: 700;
+    color: #6366f1;
+    line-height: 1;
+    text-transform: uppercase;
+}
+
+.alex-ecc .j-agent-name {
+    font-size: 11px;
+    color: var(--txt-sec);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@media (forced-colors: active) {
+    .alex-ecc .j-agent-avatar { border: 1px solid ButtonText; background: ButtonFace; }
+    .alex-ecc .j-agent-initials { color: ButtonText; }
+}
+
+.alex-ecc .j-meta {
+    font-size: 10px;
+    color: var(--txt-mute);
+    display: flex;
+    gap: 6px;
+}
+
+.alex-ecc .j-meta span + span::before {
+    content: '•';
+    margin-right: 6px;
+}
+
+/* Sentiment badge */
+.alex-ecc .j-sentiment {
+    font-size: 9px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 100px;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.alex-ecc .j-sentiment--positive {
+    background: #ECFDF5;
+    color: #059669;
+}
+
+.alex-ecc .j-sentiment--negative {
+    background: #FEF2F2;
+    color: #DC2626;
+}
+
+.alex-ecc .j-sentiment--neutral {
+    background: var(--azure-soft);
+    color: var(--azure);
+}
+
+/* Closed journey milestone */
+.alex-ecc .j-icon--bot {
+    background-color: var(--purple-soft);
+    border-color: var(--purple);
+    background-image: url('/WebResources/alex_copilot_logo');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    overflow: hidden;
+}
+
+
+    background: #F0FDF4;
+    border-color: #86EFAC;
+    color: #16A34A;
+}
+
+/* Journey total duration badge in section title */
+.alex-ecc .journey-total-duration {
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--txt-mute);
+    text-transform: none;
+    letter-spacing: 0;
+    white-space: nowrap;
+}
+
+.alex-ecc .journey-total-duration strong {
+    font-weight: 700;
+    color: var(--txt-sec);
+}
+
+/* Section title actions row (total duration + expand button) */
+.alex-ecc .section-title-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+/* Ghost button — subtle text button used for Expand/Collapse */
+.alex-ecc .ghost-btn {
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 2px 10px;
+    font-size: 10px;
+    font-weight: 600;
+    color: #6366f1;
+    cursor: pointer;
+    line-height: 1.6;
+    transition: background 0.15s, border-color 0.15s;
+    white-space: nowrap;
+    text-transform: none;
+    letter-spacing: 0;
+}
+
+.alex-ecc .ghost-btn:hover {
+    background: var(--azure-soft);
+    border-color: #6366f1;
+}
+
+.alex-ecc .ghost-btn:focus-visible {
+    outline: 2px solid #6366f1;
+    outline-offset: 2px;
+}
+
+/* Journey section expanded state — grows to fill available sidebar space */
+.alex-ecc .journey-section--expanded {
+    flex: 1;
+}
+
+/* Ghost button active state (when expanded) */
+.alex-ecc .ghost-btn--active {
+    background: var(--azure-soft);
+    border-color: #6366f1;
+}
+
+/* Expanded journey detail block */
+.alex-ecc .j-expanded-details {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-top: 5px;
+}
+
+/* Queue name + wait time pills row */
+.alex-ecc .j-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    align-items: center;
+}
+
+.alex-ecc .j-queue-tag {
+    display: inline-block;
+    padding: 1px 7px;
+    border-radius: 4px;
+    background: var(--purple-soft);
+    color: var(--purple);
+    font-size: 10px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.alex-ecc .j-wait-tag {
+    display: inline-block;
+    padding: 1px 7px;
+    border-radius: 4px;
+    background: var(--amber-soft);
+    color: var(--amber);
+    font-size: 10px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+/* Consult sub-block inside expanded session card */
+.alex-ecc .j-consult-block {
+    margin-top: 2px;
+    padding: 6px 8px;
+    border-radius: 8px;
+    background: var(--purple-soft);
+    border-inline-start: 3px solid var(--purple);
+    font-size: 11px;
+    line-height: 1.5;
+    color: var(--txt-sec);
+}
+
+.alex-ecc .j-consult-block strong {
+    display: block;
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--purple);
+    margin-bottom: 3px;
+}
+
+/* Declined transfer card */
+.alex-ecc .j-declined-card {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    padding: 8px 10px;
+    border-radius: 8px;
+    background: var(--ruby-soft);
+    border-inline-start: 3px solid var(--ruby);
+    margin: 2px 0;
+    position: relative;
+    z-index: 1;
+}
+
+.alex-ecc .j-declined-icon {
+    font-size: 14px;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.alex-ecc .j-declined-card .j-label {
+    color: var(--ruby);
+}
+
+/* Loading skeleton shimmer */
+.alex-ecc .j-skeleton {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 6px;
+}
+
+.alex-ecc .skeleton-line {
+    height: 10px;
+    border-radius: 5px;
+    background: linear-gradient(90deg, #E2E8F0 25%, #F0F4F8 50%, #E2E8F0 75%);
+    background-size: 200% 100%;
+    animation: skeleton-shimmer 1.4s infinite;
+}
+
+@keyframes skeleton-shimmer {
+    0%   { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* Forced colors (accessibility) for journey enrichment elements */
+@media (forced-colors: active) {
+    .alex-ecc .j-declined-card { border-inline-start-color: ButtonText; background: Canvas; }
+    .alex-ecc .j-consult-block { border-inline-start-color: ButtonText; background: Canvas; }
+    .alex-ecc .j-queue-tag,
+    .alex-ecc .j-wait-tag { background: ButtonFace; color: ButtonText; border: 1px solid ButtonText; }
+    .alex-ecc .skeleton-line { background: ButtonFace; animation: none; }
+}
+
+/* Call metrics */
+.alex-ecc .metrics-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.alex-ecc .metric-item {
+    background: var(--smoke);
+    border-radius: 8px;
+    padding: 10px 12px;
+}
+
+.alex-ecc .metric-label {
+    font-size: 10px;
+    color: var(--txt-mute);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+}
+
+.alex-ecc .metric-value {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--txt-main);
+}
+
+.alex-ecc .metric-value.full-width {
+    font-size: 13px;
+}
+
+.alex-ecc .ratio-bar {
+    height: 6px;
+    background: var(--border);
+    border-radius: 3px;
+    margin-top: 6px;
+    overflow: hidden;
+}
+
+.alex-ecc .ratio-fill {
+    height: 100%;
+    background: var(--azure);
+    border-radius: 3px;
+    transition: width 0.5s ease;
+}
+
+/* --- PLAYER --- */
+.alex-ecc .player {
+    padding: 16px 32px;
+    border-top: 1px solid var(--border);
+    background: #F8FAFC;
+    flex-shrink: 0;
+}
+
+.alex-ecc .player-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.alex-ecc .player-controls {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.alex-ecc .play-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid #CBD5E0;
+    background: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    transition: background 0.15s;
+}
+
+.alex-ecc .play-btn:hover {
+    background: var(--azure-soft);
+}
+
+.alex-ecc .time-display {
+    font-size: 12px;
+    color: var(--txt-sec);
+    font-family: 'Courier New', monospace;
+    min-width: 80px;
+}
+
+.alex-ecc .speed-pills {
+    display: flex;
+    gap: 4px;
+}
+
+.alex-ecc .speed-btn {
+    padding: 4px 10px;
+    border-radius: 6px;
+    border: 1px solid #CBD5E0;
+    font-size: 11px;
+    background: white;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+}
+
+.alex-ecc .speed-btn.active {
+    background: var(--azure);
+    color: white;
+    border-color: var(--azure);
+}
+
+.alex-ecc .export-actions {
+    display: flex;
+    gap: 15px;
+}
+
+.alex-ecc .export-btn {
+    font-size: 12px;
+    color: var(--azure);
+    font-weight: 600;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+    text-decoration: none;
+}
+
+.alex-ecc .export-btn:hover {
+    text-decoration: underline;
+}
+
+/* Progress bar */
+.alex-ecc .progress-bar-container {
+    width: 100%;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.alex-ecc .progress-input {
+    width: 100%;
+    height: 4px;
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    cursor: pointer;
+    position: relative;
+    z-index: 2;
+}
+
+.alex-ecc .progress-input::-webkit-slider-runnable-track {
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+}
+
+.alex-ecc .progress-input::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--azure);
+    margin-top: -4px;
+}
+
+/* Waveform */
+.alex-ecc .waveform {
+    height: 48px;
+    background: #EDF2F7;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    gap: 2px;
+    overflow: hidden;
+}
+
+.alex-ecc .w-bar {
+    flex: 1;
+    min-width: 2px;
+    border-radius: 10px;
+    background: var(--azure);
+    opacity: 0.45;
+    transition: opacity 0.2s, background 0.2s;
+}
+
+.alex-ecc .w-bar--positive { background: #34D399; }
+.alex-ecc .w-bar--negative { background: #F87171; }
+.alex-ecc .w-bar--neutral  { background: var(--azure); }
+
+.alex-ecc .w-bar.active {
+    opacity: 1;
+}
+
+/* --- TRANSCRIPT HEADER GROUPS --- */
+.alex-ecc .transcript-header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+}
+
+/* --- SEARCH BOX --- */
+.alex-ecc .search-box {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--smoke);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 4px 10px;
+    flex-shrink: 0;
+}
+
+.alex-ecc .search-icon {
+    font-size: 13px;
+    line-height: 1;
+    opacity: 0.6;
+}
+
+.alex-ecc .search-box input[type="search"] {
+    border: none;
+    background: transparent;
+    font-size: 12px;
+    color: var(--txt-main);
+    width: 160px;
+    outline: none;
+    font-family: inherit;
+}
+
+.alex-ecc .search-box input[type="search"]::placeholder {
+    color: var(--txt-mute);
+}
+
+/* Remove native search cancel button */
+.alex-ecc .search-box input[type="search"]::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+}
+
+.alex-ecc .search-clear {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: var(--txt-mute);
+    padding: 0 2px;
+    line-height: 1;
+}
+
+.alex-ecc .search-clear:hover {
+    color: var(--txt-main);
+}
+
+/* Inline search match count inside the search box */
+.alex-ecc .search-count {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--azure);
+    white-space: nowrap;
+    padding: 0 2px;
+    flex-shrink: 0;
+}
+
+/* --- SEARCH RESULTS BAR (legacy — kept for fallback; hidden when search-count is inline) --- */
+.alex-ecc .search-results-bar {
+    padding: 4px 24px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--azure);
+    background: var(--azure-soft);
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+}
+
+/* --- SEARCH HIGHLIGHT --- */
+.alex-ecc mark {
+    background: #FEF08A;
+    color: inherit;
+    border-radius: 2px;
+    padding: 0 1px;
+}
+
+/* HTML bubble with a search match — highlighted border since we can't mark inside HTML */
+.alex-ecc .bubble.bubble-match {
+    outline: 2px solid #FEF08A;
+    outline-offset: 1px;
+}
+
+/* Audio-sync active bubble — pastel highlight for the currently-playing utterance */
+.alex-ecc .bubble.bubble--active {
+    background-color: #EFF6FF !important;  /* azure-soft tint */
+    outline: 2px solid var(--azure);
+    outline-offset: 1px;
+    transition: background-color 0.3s ease, outline 0.3s ease;
+}
+
+/* Markdown content inside bubbles */
+.alex-ecc .bubble ul, .alex-ecc .bubble ol {
+    margin: 4px 0 4px 16px;
+}
+.alex-ecc .bubble li {
+    margin-bottom: 2px;
+    line-height: 1.5;
+}
+.alex-ecc .bubble code {
+    background: rgba(0,0,0,0.06);
+    border-radius: 3px;
+    padding: 0 3px;
+    font-size: 12px;
+    font-family: 'Consolas', 'Courier New', monospace;
+}
+.alex-ecc .bubble a {
+    color: var(--azure);
+    text-decoration: underline;
+}
+
+/* Adaptive Card rendered elements inside bubbles */
+.alex-ecc .bubble .adaptive-choices {
+    list-style: disc;
+    padding-left: 18px;
+    margin: 6px 0;
+}
+
+.alex-ecc .bubble .adaptive-choices li {
+    margin-bottom: 3px;
+}
+
+.alex-ecc .bubble .adaptive-actions {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.alex-ecc .bubble .adaptive-action-btn {
+    display: inline-block;
+    padding: 5px 14px;
+    border-radius: 6px;
+    background: var(--azure-soft);
+    color: var(--azure);
+    font-size: 12px;
+    font-weight: 600;
+    border: 1px solid var(--azure);
+    cursor: default;
+}
+
+/* --- RTL SUPPORT --- */
+.alex-ecc .rtl-layout {
+    direction: rtl;
+    font-family: 'Noto Sans Hebrew', 'Arial Hebrew', 'Segoe UI', system-ui, sans-serif;
+}
+
+/* Transcript border flips to left side */
+.alex-ecc .rtl-layout .transcript {
+    border-right: none;
+    border-left: 1px solid var(--border);
+}
+
+/* ── Header: pills on right (RTL start), avatar+name on left ── */
+.alex-ecc .rtl-layout .pcf-header {
+    flex-direction: row-reverse;
+}
+
+/* ── Transcript header: label on right, search on left ── */
+.alex-ecc .rtl-layout .transcript-header {
+    flex-direction: row-reverse;
+}
+
+/* ── Search box: icon on right ── */
+.alex-ecc .rtl-layout .search-box {
+    flex-direction: row-reverse;
+}
+
+/* ── Audio player: every flex container gets direction:ltr explicitly ── */
+/* (CSS inheritance of direction is unreliable on flex containers in RTL host pages) */
+.alex-ecc .rtl-layout .player,
+.alex-ecc .rtl-layout .player-top,
+.alex-ecc .rtl-layout .player-controls,
+.alex-ecc .rtl-layout .speed-pills,
+.alex-ecc .rtl-layout .export-actions,
+.alex-ecc .rtl-layout .progress-bar-container {
+    direction: ltr;
+}
+
+/* Also enforce row on every flex container so direction:ltr takes full effect */
+.alex-ecc .rtl-layout .player-top,
+.alex-ecc .rtl-layout .player-controls,
+.alex-ecc .rtl-layout .speed-pills,
+.alex-ecc .rtl-layout .export-actions {
+    flex-direction: row;
+}
+
+/* Play button: prevent ▶ from being mirrored by bidi text engine */
+.alex-ecc .rtl-layout .play-btn {
+    direction: ltr;
+    unicode-bidi: isolate;
+}
+
+/* Progress bar: RTL direction handled in JS (value inversion) — no CSS transform needed */
+
+/* Waveform: RTL bar order handled in JS (reversed array) — no CSS transform needed */
+
+/* ── Copilot summary section title: chevron on left, content on right ── */
+.alex-ecc .rtl-layout .section-title {
+    flex-direction: row-reverse;
+}
+.alex-ecc .rtl-layout .section-title-inner {
+    flex-direction: row-reverse;
+}
+
+/* ── Conversation journey: icon on right, text on left ── */
+/* padding-inline-start and inset-inline-start on .journey/.journey::before
+   flip automatically with dir="rtl" — no overrides needed here */
+
+/* j-item reverses so icon column is on the right */
+.alex-ecc .rtl-layout .j-item {
+    flex-direction: row-reverse;
+}
+
+.alex-ecc .rtl-layout .j-body {
+    text-align: right;
+}
+
+.alex-ecc .rtl-layout .j-header {
+    flex-direction: row-reverse;
+}
+
+.alex-ecc .rtl-layout .j-meta {
+    flex-direction: row-reverse;
+}
+
+/* ── Message bubbles: agent on right, customer on left ── */
+.alex-ecc .rtl-layout .message-group.agent {
+    align-self: flex-start;
+    align-items: flex-start;
+}
+
+.alex-ecc .rtl-layout .message-group.customer {
+    align-self: flex-end;
+    align-items: flex-end;
+}
+
+.alex-ecc .rtl-layout .agent .bubble {
+    border-bottom-right-radius: 18px;
+    border-bottom-left-radius: 4px;
+}
+
+.alex-ecc .rtl-layout .customer .bubble {
+    border-bottom-left-radius: 18px;
+    border-bottom-right-radius: 4px;
+}
+
+/* Bubble list indentation: flip margin for RTL */
+.alex-ecc .rtl-layout .bubble ul,
+.alex-ecc .rtl-layout .bubble ol {
+    margin: 4px 16px 4px 0;
+}
+
+/* Adaptive card choices list in RTL */
+.alex-ecc .rtl-layout .bubble .adaptive-choices {
+    padding-left: 0;
+    padding-right: 16px;
+}
+
+/* ============================================================
+   INSIGHTS DASHBOARD (Phase 3)
+   ============================================================ */
+
+/* Ghost button purple variant — used for "✦ Insights" trigger */
+.alex-ecc .ghost-btn--purple {
+    border-color: #8B5CF6;
+    color: #8B5CF6;
+}
+
+.alex-ecc .ghost-btn--purple:hover {
+    background: var(--purple-soft);
+    border-color: #7C3AED;
+    color: #7C3AED;
+}
+
+/* Section-title row with action button — shared with Journey */
+.alex-ecc .section-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+}
+
+/* Full-height insights overlay — replaces sidebar content */
+.alex-ecc .insights-overlay {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+    background: #F5F7FA;
+}
+
+.alex-ecc .insights-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 14px 8px;
+    background: white;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+}
+
+.alex-ecc .insights-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: #8B5CF6;
+    letter-spacing: 0;
+}
+
+.alex-ecc .insights-close-btn {
+    background: none;
+    border: none;
+    font-size: 14px;
+    color: var(--txt-mute);
+    cursor: pointer;
+    padding: 2px 6px;
+    border-radius: 4px;
+    line-height: 1;
+    transition: background 0.15s, color 0.15s;
+}
+
+.alex-ecc .insights-close-btn:hover {
+    background: var(--smoke);
+    color: var(--txt-main);
+}
+
+.alex-ecc .insights-close-btn:focus-visible {
+    outline: 2px solid #8B5CF6;
+    outline-offset: 2px;
+}
+
+.alex-ecc .insights-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px 10px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Insight card — white card with colored top border */
+.alex-ecc .insight-card {
+    background: white;
+    border-radius: 10px;
+    padding: 12px 14px;
+    border-top: 3px solid transparent;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.alex-ecc .insight-card.timing  { border-top-color: #3B82F6; }
+.alex-ecc .insight-card.routing { border-top-color: #F59E0B; }
+.alex-ecc .insight-card.quality { border-top-color: #10B981; }
+.alex-ecc .insight-card.people  { border-top-color: #8B5CF6; }
+
+.alex-ecc .ic-section-label {
+    font-size: 9px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+}
+
+.alex-ecc .ic-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 10px;
+}
+
+.alex-ecc .ic-metric {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.alex-ecc .ic-metric-value {
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--txt-main);
+    line-height: 1.1;
+}
+
+.alex-ecc .ic-metric-label {
+    font-size: 9px;
+    color: var(--txt-mute);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Colored metric values */
+.alex-ecc .ic-value--amber { color: #F59E0B; }
+.alex-ecc .ic-value--ruby  { color: #EF4444; }
+
+/* Sentiment row in quality card */
+.alex-ecc .ic-sentiment {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+/* Participant list */
+.alex-ecc .participant-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.alex-ecc .participant-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.alex-ecc .participant-avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--purple-soft);
+    color: var(--purple);
+    font-size: 11px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.alex-ecc .participant-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.alex-ecc .participant-name {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--txt-main);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.alex-ecc .participant-role {
+    font-size: 10px;
+    color: var(--txt-mute);
+}
+
+.alex-ecc .participant-times {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 2px;
+    flex-shrink: 0;
+}
+
+.alex-ecc .participant-time-item {
+    font-size: 10px;
+    color: var(--txt-sec);
+    white-space: nowrap;
+}
+
+.alex-ecc .participant-time-hold {
+    color: var(--amber);
+}
+
+/* Forced colors for insights dashboard */
+@media (forced-colors: active) {
+    .alex-ecc .insight-card {
+        border-top-color: Highlight;
+        background: Canvas;
+        box-shadow: none;
+    }
+    .alex-ecc .ic-value--amber,
+    .alex-ecc .ic-value--ruby { color: ButtonText; }
+    .alex-ecc .participant-avatar { background: ButtonFace; color: ButtonText; }
+    .alex-ecc .insights-overlay { background: Canvas; }
+    .alex-ecc .insights-header { background: Canvas; border-bottom-color: ButtonText; }
+}

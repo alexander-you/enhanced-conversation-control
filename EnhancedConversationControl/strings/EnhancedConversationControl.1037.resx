@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+
+  <!-- ==================== Manifest display names ==================== -->
+  <data name="PCF_EnhancedConversationControl_Display" xml:space="preserve">
+    <value>בקר שיחה מתקדם</value>
+  </data>
+  <data name="PCF_EnhancedConversationControl_Desc" xml:space="preserve">
+    <value>מציג פרטי שיחה מתקדמים לשיחות Omnichannel</value>
+  </data>
+  <data name="PCF_Property_Display" xml:space="preserve">
+    <value>שדה בקר שיחה מתקדם</value>
+  </data>
+  <data name="PCF_Property_Desc" xml:space="preserve">
+    <value>שדה עוגן לבקר שיחה מתקדם</value>
+  </data>
+
+  <!-- ==================== Channel labels ==================== -->
+  <data name="Label_LiveChat" xml:space="preserve">
+    <value>צ'אט חי</value>
+  </data>
+  <data name="Label_Voice" xml:space="preserve">
+    <value>קול</value>
+  </data>
+  <data name="Label_VoiceCallback" xml:space="preserve">
+    <value>שיחה חוזרת</value>
+  </data>
+  <data name="Label_Unknown" xml:space="preserve">
+    <value>לא ידוע</value>
+  </data>
+
+  <!-- ==================== Status labels ==================== -->
+  <data name="Label_Active" xml:space="preserve">
+    <value>פעיל</value>
+  </data>
+  <data name="Label_Waiting" xml:space="preserve">
+    <value>ממתין</value>
+  </data>
+  <data name="Label_Closed" xml:space="preserve">
+    <value>סגור</value>
+  </data>
+  <data name="Label_WrapUp" xml:space="preserve">
+    <value>סיכום</value>
+  </data>
+  <data name="Label_Resolved" xml:space="preserve">
+    <value>נפתר</value>
+  </data>
+  <data name="Label_Open" xml:space="preserve">
+    <value>פתוח</value>
+  </data>
+
+  <!-- ==================== Header ==================== -->
+  <data name="Label_UnknownCustomer" xml:space="preserve">
+    <value>לקוח לא ידוע</value>
+  </data>
+  <data name="Label_Today" xml:space="preserve">
+    <value>היום</value>
+  </data>
+  <data name="Aria_ConversationDetails" xml:space="preserve">
+    <value>פרטי שיחה</value>
+  </data>
+
+  <!-- ==================== Transcript panel ==================== -->
+  <data name="Label_Transcript" xml:space="preserve">
+    <value>תמליל</value>
+  </data>
+  <data name="Label_VoiceTranscript" xml:space="preserve">
+    <value>תמליל קולי</value>
+  </data>
+  <data name="Label_TranscriptNotAvailable" xml:space="preserve">
+    <value>התמליל אינו זמין</value>
+  </data>
+  <data name="Label_VoiceTranscriptNotAvailable" xml:space="preserve">
+    <value>התמליל הקולי אינו זמין</value>
+  </data>
+  <data name="Aria_ConversationTranscript" xml:space="preserve">
+    <value>תמליל שיחה</value>
+  </data>
+
+  <!-- ==================== Copilot summary ==================== -->
+  <data name="Label_CopilotSummary" xml:space="preserve">
+    <value>סיכום Copilot</value>
+  </data>
+  <data name="Label_AI" xml:space="preserve">
+    <value>AI</value>
+  </data>
+
+  <!-- ==================== Tags ==================== -->
+  <data name="Label_TagsKeywords" xml:space="preserve">
+    <value>תגיות ומילות מפתח</value>
+  </data>
+
+  <!-- ==================== Journey ==================== -->
+  <data name="Label_ConversationJourney" xml:space="preserve">
+    <value>מסע שיחה</value>
+  </data>
+  <data name="Label_Session" xml:space="preserve">
+    <value>סשן</value>
+  </data>
+  <data name="Label_LessThan1Min" xml:space="preserve">
+    <value>&lt; דקה</value>
+  </data>
+  <data name="Label_InitialCall" xml:space="preserve">
+    <value>שיחה ראשונית</value>
+  </data>
+  <data name="Label_Escalation" xml:space="preserve">
+    <value>הסלמה</value>
+  </data>
+  <data name="Label_Transfer" xml:space="preserve">
+    <value>העברה</value>
+  </data>
+  <data name="Label_SentimentPositive" xml:space="preserve">
+    <value>↑ חיובי</value>
+  </data>
+  <data name="Label_SentimentNegative" xml:space="preserve">
+    <value>↓ שלילי</value>
+  </data>
+  <data name="Label_SentimentNeutral" xml:space="preserve">
+    <value>– ניטרלי</value>
+  </data>
+  <data name="Label_JourneyExpand" xml:space="preserve">
+    <value>הרחב</value>
+  </data>
+  <data name="Label_JourneyCollapse" xml:space="preserve">
+    <value>כווץ</value>
+  </data>
+  <data name="Label_TotalDuration" xml:space="preserve">
+    <value>סה"כ</value>
+  </data>
+  <data name="Label_BotSession" xml:space="preserve">
+    <value>סשן בוט</value>
+  </data>
+  <data name="Label_TransferDeclined" xml:space="preserve">
+    <value>העברה נדחתה</value>
+  </data>
+  <data name="Label_NeverAccepted" xml:space="preserve">
+    <value>לא אושר</value>
+  </data>
+  <data name="Label_SessionInitial" xml:space="preserve">
+    <value>ראשוני</value>
+  </data>
+  <data name="Label_SessionTransfer" xml:space="preserve">
+    <value>העברה</value>
+  </data>
+  <data name="Label_SessionDeclined" xml:space="preserve">
+    <value>נדחה</value>
+  </data>
+  <data name="Label_SessionClosed" xml:space="preserve">
+    <value>סגור</value>
+  </data>
+  <data name="Label_SessionTransferred" xml:space="preserve">
+    <value>הועבר</value>
+  </data>
+  <data name="Label_WrapUpStarted" xml:space="preserve">
+    <value>סיכום החל</value>
+  </data>
+  <data name="Label_QueuedIn" xml:space="preserve">
+    <value>הופנה ל:</value>
+  </data>
+  <data name="Label_QueueWait" xml:space="preserve">
+    <value>המתנה בתור:</value>
+  </data>
+  <data name="Label_ConsultJoined" xml:space="preserve">
+    <value>ייעוץ:</value>
+  </data>
+  <data name="Label_ConsultTransferred" xml:space="preserve">
+    <value>← הועבר ל</value>
+  </data>
+
+  <!-- ==================== Call metrics ====================-->
+  <data name="Label_CallMetrics" xml:space="preserve">
+    <value>מדדי שיחה</value>
+  </data>
+  <data name="Label_Duration" xml:space="preserve">
+    <value>משך</value>
+  </data>
+  <data name="Label_TalkSpeed" xml:space="preserve">
+    <value>קצב דיבור</value>
+  </data>
+  <data name="Label_Switches" xml:space="preserve">
+    <value>מעברים</value>
+  </data>
+  <data name="Label_AvgPause" xml:space="preserve">
+    <value>הפסקה ממוצעת</value>
+  </data>
+  <data name="Label_TalkListenRatio" xml:space="preserve">
+    <value>יחס דיבור / האזנה</value>
+  </data>
+  <data name="Label_OverallSentiment" xml:space="preserve">
+    <value>סנטימנט כולל</value>
+  </data>
+  <data name="Label_WordsPerMin" xml:space="preserve">
+    <value>מ/ד</value>
+  </data>
+
+  <!-- ==================== Audio player ==================== -->
+  <data name="Label_Play" xml:space="preserve">
+    <value>הפעל</value>
+  </data>
+  <data name="Label_Pause" xml:space="preserve">
+    <value>השהה</value>
+  </data>
+  <data name="Aria_Play" xml:space="preserve">
+    <value>הפעל שמע</value>
+  </data>
+  <data name="Aria_Pause" xml:space="preserve">
+    <value>השהה שמע</value>
+  </data>
+  <data name="Aria_DownloadAudio" xml:space="preserve">
+    <value>הורד הקלטה</value>
+  </data>
+  <data name="Aria_DownloadTranscript" xml:space="preserve">
+    <value>הורד תמליל קולי</value>
+  </data>
+  <data name="Label_DownloadAudio" xml:space="preserve">
+    <value>הורד שמע</value>
+  </data>
+  <data name="Label_DownloadTranscript" xml:space="preserve">
+    <value>הורד תמליל</value>
+  </data>
+  <data name="Aria_AudioPlayer" xml:space="preserve">
+    <value>נגן שמע</value>
+  </data>
+  <data name="Aria_PlaybackSpeed" xml:space="preserve">
+    <value>מהירות ניגון</value>
+  </data>
+  <data name="Aria_SeekAudio" xml:space="preserve">
+    <value>דלג לנקודה בשמע</value>
+  </data>
+
+  <!-- ==================== Search & AI Insights ==================== -->
+  <data name="Label_AIInsights" xml:space="preserve">
+    <value>תובנות AI</value>
+  </data>
+  <data name="Label_SearchPlaceholder" xml:space="preserve">
+    <value>חיפוש בשיחה...</value>
+  </data>
+  <data name="Label_SearchOf" xml:space="preserve">
+    <value>מתוך</value>
+  </data>
+  <data name="Label_NoInsights" xml:space="preserve">
+    <value>אין תובנות זמינות עבור שיחה זו.</value>
+  </data>
+  <data name="Label_NoMatches" xml:space="preserve">
+    <value>אין תוצאות</value>
+  </data>
+
+  <!-- ==================== Loading / errors ==================== -->
+  <data name="Label_Loading" xml:space="preserve">
+    <value>טוען נתוני שיחה</value>
+  </data>
+  <data name="Error_NoId" xml:space="preserve">
+    <value>לא נמצא מזהה שיחה בהקשר זה.</value>
+  </data>
+  <data name="Error_Failed" xml:space="preserve">
+    <value>טעינת השיחה נכשלה</value>
+  </data>
+
+  <!-- ==================== Insights Dashboard ==================== -->
+  <data name="Label_Insights" xml:space="preserve">
+    <value>תובנות</value>
+  </data>
+  <data name="Label_ConversationInsights" xml:space="preserve">
+    <value>תובנות שיחה</value>
+  </data>
+  <data name="Label_InsightsTiming" xml:space="preserve">
+    <value>תזמון</value>
+  </data>
+  <data name="Label_InsightsRouting" xml:space="preserve">
+    <value>ניתוב</value>
+  </data>
+  <data name="Label_InsightsQuality" xml:space="preserve">
+    <value>AI / איכות קולית</value>
+  </data>
+  <data name="Label_InsightsParticipants" xml:space="preserve">
+    <value>משתתפים</value>
+  </data>
+  <data name="Label_QueueWaitTime" xml:space="preserve">
+    <value>המתנה בתור</value>
+  </data>
+  <data name="Label_TalkTime" xml:space="preserve">
+    <value>זמן דיבור</value>
+  </data>
+  <data name="Label_HoldTime" xml:space="preserve">
+    <value>זמן המתנה</value>
+  </data>
+  <data name="Label_WrapUpTime" xml:space="preserve">
+    <value>סיכום</value>
+  </data>
+  <data name="Label_HandleTime" xml:space="preserve">
+    <value>זמן טיפול</value>
+  </data>
+  <data name="Label_SessionsCount" xml:space="preserve">
+    <value>מושבים</value>
+  </data>
+  <data name="Label_Transfers" xml:space="preserve">
+    <value>העברות</value>
+  </data>
+  <data name="Label_EscalationsCount" xml:space="preserve">
+    <value>הסלמות</value>
+  </data>
+  <data name="Label_DeclinedCount" xml:space="preserve">
+    <value>דחיות</value>
+  </data>
+  <data name="Label_AgentTalkRatio" xml:space="preserve">
+    <value>יחס דיבור נציג</value>
+  </data>
+  <data name="Label_SpeakingPace" xml:space="preserve">
+    <value>קצב דיבור</value>
+  </data>
+  <data name="Label_LongestMonologue" xml:space="preserve">
+    <value>מונולוג ארוך ביותר</value>
+  </data>
+  <data name="Label_ConvSwitches" xml:space="preserve">
+    <value>החלפות שיחה</value>
+  </data>
+
+</root>

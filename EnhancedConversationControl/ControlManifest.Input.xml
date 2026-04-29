@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<manifest>
+  <control namespace="alex"
+           constructor="EnhancedConversationControl"
+           version="1.5.0"
+           display-name-key="PCF_EnhancedConversationControl_Display"
+           description-key="PCF_EnhancedConversationControl_Desc"
+           control-type="virtual">
+
+    <external-service-usage enabled="false">
+    </external-service-usage>
+
+    <property name="alex_enhancedconversationcontrol"
+              display-name-key="PCF_Property_Display"
+              description-key="PCF_Property_Desc"
+              of-type="SingleLine.Text"
+              usage="bound"
+              required="true" />
+
+    <resources>
+      <code path="index.ts" order="1"/>
+      <css path="css/EnhancedConversationControl.css" order="1" />
+      <resx path="strings/EnhancedConversationControl.1033.resx" version="1.0.0" />
+      <resx path="strings/EnhancedConversationControl.1037.resx" version="1.0.0" />
+      <platform-library name="React" version="16.14.0" />
+      <platform-library name="Fluent" version="9.46.2" />
+    </resources>
+
+    <feature-usage>
+      <uses-feature name="WebAPI" required="true" />
+      <uses-feature name="Utility" required="true" />
+    </feature-usage>
+
+  </control>
+</manifest>

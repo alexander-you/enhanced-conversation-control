@@ -6,6 +6,50 @@
 
 ---
 
+## v1.0.3 — 2026-05-12
+
+**Status:** Deployed ✅
+
+### 🆕 New Features
+
+**Clickable Contact & Case in Header**  
+The customer name and case/regarding name in the conversation header are now interactive links. Clicking them opens the associated Dynamics 365 record. Two new control settings govern the behavior:
+
+| Setting | Value | Behavior |
+|---|---|---|
+| `opencontactfullscreen` | `false` *(default)* | Opens the contact as a **modal dialog** over the current page |
+| `opencontactfullscreen` | `true` | Navigates to the contact **inline in the same window** |
+| `opencasefullscreen` | `false` *(default)* | Opens the case as a **modal dialog** over the current page |
+| `opencasefullscreen` | `true` | Navigates to the case **inline in the same window** |
+
+Navigation uses `Xrm.Navigation.navigateTo` (`target: 2` for dialog, `target: 1` for inline).
+
+**Context Variables Panel**  
+A new collapsible panel in the sidebar displays Omnichannel context variables for the active conversation. Variable names are configured via the new `contextVariableNames` control property (JSON array, e.g. `["Email","Name","PhoneNumber"]`). Values are fetched on demand when the panel is expanded and can be refreshed manually. Queries the elastic table first, falling back to the standard table automatically.
+
+**Conversation ID Relocated**  
+The Conversation ID (GUID) section has been moved to the bottom of the sidebar, below the Context Variables panel, reflecting its primarily operational/diagnostic purpose.
+
+### 🐛 Bug Fixes
+
+- **Header dot misalignment** — The status health dot is now correctly positioned next to the case/regarding name. The case name button was inheriting `width: 100%` from a shared CSS class, pushing the timestamp and dot to the next line.
+- **Sidebar empty placeholder** — The Conversation ID section no longer inflates to fill all remaining sidebar space. Fixed by removing the `sidebar-section:last-child { flex: 1 }` conflict.
+
+### ⚙️ New Control Properties
+
+| Property | Type | Default | Description |
+|---|---|---|---|
+| `opencontactfullscreen` | TwoOptions | `false` | How to open the linked contact record |
+| `opencasefullscreen` | TwoOptions | `false` | How to open the linked case record |
+| `contextVariableNames` | SingleLine.Text | *(empty)* | JSON array of Omnichannel context variable names to display |
+
+### 🌐 Localization
+
+All new labels are available in English (1033) and Hebrew (1037):  
+`Label_ContextVariables`, `Label_ContextRefresh`, `Label_ContextRetry`, `Label_ContextNoData`, `PCF_ContextVarNames_Display`, `PCF_ContextVarNames_Desc`, `PCF_OpenContactFullScreen_Display/Desc`, `PCF_OpenCaseFullScreen_Display/Desc`.
+
+---
+
 ## v1.5.0 — 2026-04-28
 
 **Status:** Deployed ✅

@@ -107,6 +107,7 @@ export const Sidebar: React.FC<ISidebarProps> = ({
                 <JourneyPanel
                     sessions={sessions}
                     insightsJson={insightsJson}
+                    conversationId={conversation?.activityid ?? null}
                     conversationClosedon={conversation?.msdyn_closedon ?? null}
                     conversationStatecode={conversation?.statecode ?? 0}
                     isExpanded={mode === 'journey-expanded'}

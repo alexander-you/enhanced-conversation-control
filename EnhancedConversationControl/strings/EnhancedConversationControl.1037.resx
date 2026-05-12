@@ -199,6 +199,15 @@
   <data name="Label_ConsultTransferred" xml:space="preserve">
     <value>← הועבר ל</value>
   </data>
+  <data name="Label_ConversationId" xml:space="preserve">
+    <value>מזהה שיחה (GUID)</value>
+  </data>
+  <data name="Label_Copy" xml:space="preserve">
+    <value>העתק</value>
+  </data>
+  <data name="Label_Copied" xml:space="preserve">
+    <value>הועתק</value>
+  </data>
 
   <!-- ==================== Call metrics ====================-->
   <data name="Label_CallMetrics" xml:space="preserve">

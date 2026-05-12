@@ -92,6 +92,8 @@ export interface IStrings {
     labelConversationId: string;
     labelCopy: string;
     labelCopied: string;
+    labelOpenContact: string;
+    labelOpenCase: string;
 
     // Insights Dashboard labels (Phase 3)
     labelInsights: string;
@@ -198,6 +200,8 @@ export const DEFAULT_STRINGS: IStrings = {
     labelConversationId: 'Conversation ID (GUID)',
     labelCopy: 'Copy',
     labelCopied: 'Copied',
+    labelOpenContact: 'Open contact',
+    labelOpenCase: 'Open case',
 
     // Insights Dashboard labels (Phase 3)
     labelInsights: 'Insights',
@@ -309,6 +313,8 @@ export function createStrings(resources: ComponentFramework.Resources): IStrings
         labelConversationId:            s('Label_ConversationId', d.labelConversationId),
         labelCopy:                      s('Label_Copy', d.labelCopy),
         labelCopied:                    s('Label_Copied', d.labelCopied),
+        labelOpenContact:               s('Label_OpenContact', d.labelOpenContact),
+        labelOpenCase:                  s('Label_OpenCase', d.labelOpenCase),
         labelInsights:                  s('Label_Insights', d.labelInsights),
         labelConversationInsights:      s('Label_ConversationInsights', d.labelConversationInsights),
         labelInsightsTiming:            s('Label_InsightsTiming', d.labelInsightsTiming),

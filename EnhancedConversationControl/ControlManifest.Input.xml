@@ -2,7 +2,7 @@
 <manifest>
   <control namespace="alex"
            constructor="EnhancedConversationControl"
-           version="1.5.0"
+           version="1.6.0"
            display-name-key="PCF_EnhancedConversationControl_Display"
            description-key="PCF_EnhancedConversationControl_Desc"
            control-type="virtual">
@@ -16,6 +16,20 @@
               of-type="SingleLine.Text"
               usage="bound"
               required="true" />
+
+    <property name="opencontactfullscreen"
+              display-name-key="PCF_OpenContactFullScreen_Display"
+              description-key="PCF_OpenContactFullScreen_Desc"
+              of-type="TwoOptions"
+              usage="input"
+              required="false" />
+
+    <property name="opencasefullscreen"
+              display-name-key="PCF_OpenCaseFullScreen_Display"
+              description-key="PCF_OpenCaseFullScreen_Desc"
+              of-type="TwoOptions"
+              usage="input"
+              required="false" />
 
     <resources>
       <code path="index.ts" order="1"/>

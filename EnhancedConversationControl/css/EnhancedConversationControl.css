@@ -112,6 +112,43 @@
     margin-bottom: 2px;
 }
 
+/* Clickable header button — wraps h2 or inline text; resets button chrome */
+.alex-ecc .header-link-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    text-align: start;
+    color: inherit;
+    display: block;
+    width: 100%;
+}
+
+.alex-ecc .header-link-btn:hover h2,
+.alex-ecc .header-link-btn:focus-visible h2 {
+    color: var(--azure);
+    text-decoration: underline;
+}
+
+.alex-ecc .header-link-btn:focus-visible {
+    outline: 2px solid var(--azure);
+    outline-offset: 2px;
+    border-radius: 3px;
+}
+
+/* Inline variant used inside the sub-line <p> */
+.alex-ecc .header-link-btn--inline {
+    display: inline;
+    font-size: 13px;
+    color: var(--txt-sec);
+}
+
+.alex-ecc .header-link-btn--inline:hover,
+.alex-ecc .header-link-btn--inline:focus-visible {
+    color: var(--azure);
+    text-decoration: underline;
+}
+
 .alex-ecc .user-details p {
     font-size: 13px;
     color: var(--txt-sec);

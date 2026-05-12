@@ -194,6 +194,33 @@ export const App: React.FC<IAppProps> = ({ context, entityId }) => {
     const isVoice = state.renderMode === 'voice' || state.renderMode === 'voicecallback';
     const strings = React.useMemo(() => createStrings(context.resources), [context.resources]);
 
+    // ── New settings: open Contact / Case full-screen (new tab) vs. dialog ──
+    const openContactFullScreen = context.parameters.opencontactfullscreen?.raw ?? false;
+    const openCaseFullScreen    = context.parameters.opencasefullscreen?.raw ?? false;
+
+    // ── Navigation callbacks for Header ─────────────────────────────────────
+    const onContactClick = React.useMemo(() => {
+        const contactId = state.conversation?._msdyn_customer_value ?? null;
+        const entityType = state.conversation?.['_msdyn_customer_value@Microsoft.Dynamics.CRM.lookuplogicalname'] ?? 'contact';
+        if (!contactId) return undefined;
+        return () => {
+            void context.navigation.openForm(
+                { entityName: entityType, entityId: contactId, openInNewWindow: openContactFullScreen }
+            );
+        };
+    }, [state.conversation, openContactFullScreen, context.navigation]);
+
+    const onCaseClick = React.useMemo(() => {
+        const caseId = state.conversation?._regardingobjectid_value ?? null;
+        const entityType = state.conversation?.['_regardingobjectid_value@Microsoft.Dynamics.CRM.lookuplogicalname'] ?? 'incident';
+        if (!caseId) return undefined;
+        return () => {
+            void context.navigation.openForm(
+                { entityName: entityType, entityId: caseId, openInNewWindow: openCaseFullScreen }
+            );
+        };
+    }, [state.conversation, openCaseFullScreen, context.navigation]);
+
     // Search state
     const [searchTerm, setSearchTerm] = React.useState('');
     const [searchMatchCount, setSearchMatchCount] = React.useState<{ count: number; total: number } | null>(null);
@@ -232,7 +259,7 @@ export const App: React.FC<IAppProps> = ({ context, entityId }) => {
                 className={rootClass}
                 dir={isRtl ? 'rtl' : 'ltr'}
                 style={containerStyle}
-                data-version="1.5.0"
+                data-version="1.6.0"
                 role={state.error ? 'alert' : undefined}
             >
                 {state.loading ? (
@@ -241,7 +268,12 @@ export const App: React.FC<IAppProps> = ({ context, entityId }) => {
                     <p>⚠️ {state.error}</p>
                 ) : (
                     <>
-                        <Header conversation={state.conversation} renderMode={state.renderMode} />
+                        <Header
+                            conversation={state.conversation}
+                            renderMode={state.renderMode}
+                            onContactClick={onContactClick}
+                            onCaseClick={onCaseClick}
+                        />
                         <div className="content-grid">
                             <div className="transcript">
                                 <div className="transcript-header">

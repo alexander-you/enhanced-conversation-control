@@ -6,6 +6,7 @@ import { TagsPanel } from './TagsPanel';
 import { JourneyPanel } from './JourneyPanel';
 import { CallMetrics } from './CallMetrics';
 import { InsightsDashboard } from './InsightsDashboard';
+import { useStrings } from '../i18n/StringsContext';
 
 export type SidebarMode = 'default' | 'journey-expanded' | 'insights';
 
@@ -22,7 +23,46 @@ interface ISidebarProps {
 export const Sidebar: React.FC<ISidebarProps> = ({
     insight, sessions, renderMode, insightsJson, keywords, conversation, webAPI
 }) => {
+    const strings = useStrings();
     const isVoice = renderMode === 'voice' || renderMode === 'voicecallback';
+    const conversationId = conversation?.activityid ?? null;
+
+    // ── Copy-to-clipboard state for Conversation ID ─────────────────────────
+    const [copyStatus, setCopyStatus] = React.useState<'idle' | 'copied'>('idle');
+
+    const handleCopyConversationId = React.useCallback(async () => {
+        if (!conversationId) return;
+
+        const fallbackCopy = (): boolean => {
+            try {
+                const temp = document.createElement('textarea');
+                temp.value = conversationId;
+                temp.setAttribute('readonly', 'true');
+                temp.style.position = 'fixed';
+                temp.style.opacity = '0';
+                document.body.appendChild(temp);
+                temp.select();
+                const ok = document.execCommand('copy');
+                document.body.removeChild(temp);
+                return ok;
+            } catch {
+                return false;
+            }
+        };
+
+        try {
+            if (navigator.clipboard?.writeText) {
+                await navigator.clipboard.writeText(conversationId);
+            } else if (!fallbackCopy()) {
+                return;
+            }
+        } catch {
+            if (!fallbackCopy()) return;
+        }
+
+        setCopyStatus('copied');
+        window.setTimeout(() => setCopyStatus('idle'), 1500);
+    }, [conversationId]);
 
     // ── Sidebar mode state machine ──────────────────────────────────────────
     const [mode, setMode] = React.useState<SidebarMode>('default');
@@ -73,7 +113,7 @@ export const Sidebar: React.FC<ISidebarProps> = ({
     const hasTags = !!(keywords);
     const hasJourney = sessions.length > 0;
 
-    if (!hasCopilot && !hasMetrics && !hasTags && !hasJourney) return null;
+    if (!hasCopilot && !hasMetrics && !hasTags && !hasJourney && !conversationId) return null;
 
     if (mode === 'insights') {
         return (
@@ -107,7 +147,6 @@ export const Sidebar: React.FC<ISidebarProps> = ({
                 <JourneyPanel
                     sessions={sessions}
                     insightsJson={insightsJson}
-                    conversationId={conversation?.activityid ?? null}
                     conversationClosedon={conversation?.msdyn_closedon ?? null}
                     conversationStatecode={conversation?.statecode ?? 0}
                     isExpanded={mode === 'journey-expanded'}
@@ -116,6 +155,22 @@ export const Sidebar: React.FC<ISidebarProps> = ({
                     onExpand={() => { void handleJourneyExpand(); }}
                     onCollapse={handleJourneyCollapse}
                 />
+            )}
+            {conversationId && (
+                <div className="sidebar-section journey-conversation-id">
+                    <div className="journey-conversation-id__label">{strings.labelConversationId}</div>
+                    <div className="journey-conversation-id__row">
+                        <code className="journey-conversation-id__value" title={conversationId}>{conversationId}</code>
+                        <button
+                            type="button"
+                            className="journey-copy-btn"
+                            onClick={() => { void handleCopyConversationId(); }}
+                            aria-label={`${strings.labelCopy} ${strings.labelConversationId}`}
+                        >
+                            {copyStatus === 'copied' ? strings.labelCopied : strings.labelCopy}
+                        </button>
+                    </div>
+                </div>
             )}
         </aside>
     );

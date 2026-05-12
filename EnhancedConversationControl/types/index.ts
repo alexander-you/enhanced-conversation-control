@@ -10,6 +10,7 @@ export interface IConversation {
     msdyn_closedon: string | null;
     _msdyn_customer_value: string | null;
     '_msdyn_customer_value@OData.Community.Display.V1.FormattedValue': string | null;
+    '_msdyn_customer_value@Microsoft.Dynamics.CRM.lookuplogicalname': string | null;
     _msdyn_activeagentid_value: string | null;
     '_msdyn_activeagentid_value@OData.Community.Display.V1.FormattedValue': string | null;
     _msdyn_cdsqueueid_value: string | null;
@@ -18,6 +19,7 @@ export interface IConversation {
     '_msdyn_customerlanguageid_value@OData.Community.Display.V1.FormattedValue': string | null;
     _regardingobjectid_value: string | null;
     '_regardingobjectid_value@OData.Community.Display.V1.FormattedValue': string | null;
+    '_regardingobjectid_value@Microsoft.Dynamics.CRM.lookuplogicalname': string | null;
     msdyn_customersentimentlabel: number | null;
     msdyn_urcustomersentimentscore: number | null;
     msdyn_urcustomersentimentkeywords: string | null;

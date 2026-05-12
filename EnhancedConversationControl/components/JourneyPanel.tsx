@@ -7,7 +7,6 @@ import { IStrings } from '../i18n/strings';
 interface IJourneyPanelProps {
     sessions: ISession[];
     insightsJson: IInsightsJson | null;
-    conversationId: string | null;
     conversationClosedon: string | null;
     conversationStatecode: number;
     isExpanded: boolean;
@@ -159,46 +158,11 @@ const AgentAvatar: React.FC<{ ownerId: string | null; name: string | null }> = (
 // ── JourneyPanel ─────────────────────────────────────────────────────────────
 
 export const JourneyPanel: React.FC<IJourneyPanelProps> = ({
-    sessions, insightsJson, conversationId, conversationClosedon, conversationStatecode,
+    sessions, insightsJson, conversationClosedon, conversationStatecode,
     isExpanded, participantsBySession, participantsLoading, onExpand, onCollapse
 }) => {
     const strings = useStrings();
-    const [copyStatus, setCopyStatus] = React.useState<'idle' | 'copied'>('idle');
     if (!sessions || sessions.length === 0) return null;
-
-    const handleCopyConversationId = React.useCallback(async () => {
-        if (!conversationId) return;
-
-        const fallbackCopy = (): boolean => {
-            try {
-                const temp = document.createElement('textarea');
-                temp.value = conversationId;
-                temp.setAttribute('readonly', 'true');
-                temp.style.position = 'fixed';
-                temp.style.opacity = '0';
-                document.body.appendChild(temp);
-                temp.select();
-                const ok = document.execCommand('copy');
-                document.body.removeChild(temp);
-                return ok;
-            } catch {
-                return false;
-            }
-        };
-
-        try {
-            if (navigator.clipboard?.writeText) {
-                await navigator.clipboard.writeText(conversationId);
-            } else if (!fallbackCopy()) {
-                return;
-            }
-        } catch {
-            if (!fallbackCopy()) return;
-        }
-
-        setCopyStatus('copied');
-        window.setTimeout(() => setCopyStatus('idle'), 1500);
-    }, [conversationId]);
 
     const firstSession = sessions[0];
     const lastSession = sessions[sessions.length - 1];
@@ -387,23 +351,6 @@ export const JourneyPanel: React.FC<IJourneyPanelProps> = ({
                     </div>
                 )}
             </div>
-
-            {conversationId && (
-                <div className="journey-conversation-id">
-                    <div className="journey-conversation-id__label">{strings.labelConversationId}</div>
-                    <div className="journey-conversation-id__row">
-                        <code className="journey-conversation-id__value" title={conversationId}>{conversationId}</code>
-                        <button
-                            type="button"
-                            className="journey-copy-btn"
-                            onClick={() => { void handleCopyConversationId(); }}
-                            aria-label={`${strings.labelCopy} ${strings.labelConversationId}`}
-                        >
-                            {copyStatus === 'copied' ? strings.labelCopied : strings.labelCopy}
-                        </button>
-                    </div>
-                </div>
-            )}
         </div>
     );
 };

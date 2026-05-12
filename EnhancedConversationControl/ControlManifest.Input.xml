@@ -31,6 +31,13 @@
               usage="input"
               required="false" />
 
+    <property name="contextVariableNames"
+              display-name-key="PCF_ContextVarNames_Display"
+              description-key="PCF_ContextVarNames_Desc"
+              of-type="SingleLine.Text"
+              usage="input"
+              required="false" />
+
     <resources>
       <code path="index.ts" order="1"/>
       <css path="css/EnhancedConversationControl.css" order="1" />

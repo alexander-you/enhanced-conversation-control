@@ -375,4 +375,24 @@
     <value>Conv. Switches</value>
   </data>
 
+
+  <!-- ==================== Context Variables ==================== -->
+  <data name="PCF_ContextVarNames_Display" xml:space="preserve">
+    <value>Context Variable Names (JSON)</value>
+  </data>
+  <data name="PCF_ContextVarNames_Desc" xml:space="preserve">
+    <value>JSON array of context variable names to retrieve, e.g. ["Email","Name"]</value>
+  </data>
+  <data name="Label_ContextVariables" xml:space="preserve">
+    <value>Context Variables</value>
+  </data>
+  <data name="Label_ContextRefresh" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="Label_ContextRetry" xml:space="preserve">
+    <value>Retry</value>
+  </data>
+  <data name="Label_ContextNoData" xml:space="preserve">
+    <value>No context variables found.</value>
+  </data>
 </root>

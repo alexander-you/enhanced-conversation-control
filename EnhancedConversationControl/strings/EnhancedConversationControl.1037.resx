@@ -375,4 +375,24 @@
     <value>החלפות שיחה</value>
   </data>
 
+
+  <!-- ==================== Context Variables ==================== -->
+  <data name="PCF_ContextVarNames_Display" xml:space="preserve">
+    <value>שמות משתני הקשר (JSON)</value>
+  </data>
+  <data name="PCF_ContextVarNames_Desc" xml:space="preserve">
+    <value>מערך JSON של שמות משתני הקשר לשליפה, לדוגמה ["Email","Name"]</value>
+  </data>
+  <data name="Label_ContextVariables" xml:space="preserve">
+    <value>משתני הקשר</value>
+  </data>
+  <data name="Label_ContextRefresh" xml:space="preserve">
+    <value>רענן</value>
+  </data>
+  <data name="Label_ContextRetry" xml:space="preserve">
+    <value>נסה שוב</value>
+  </data>
+  <data name="Label_ContextNoData" xml:space="preserve">
+    <value>לא נמצאו משתני הקשר.</value>
+  </data>
 </root>

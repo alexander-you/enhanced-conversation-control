@@ -198,6 +198,13 @@ export const App: React.FC<IAppProps> = ({ context, entityId }) => {
     const openContactFullScreen = context.parameters.opencontactfullscreen?.raw ?? false;
     const openCaseFullScreen    = context.parameters.opencasefullscreen?.raw ?? false;
 
+    // ── Context variable names (JSON array from manifest property) ──────────
+    const contextVariableNames = React.useMemo<string[]>(() => {
+        const raw = context.parameters.contextVariableNames?.raw ?? '';
+        if (!raw) return [];
+        try { return JSON.parse(raw) as string[]; } catch { return []; }
+    }, [context.parameters.contextVariableNames?.raw]);
+
     // ── Navigation callbacks for Header ─────────────────────────────────────
     const onContactClick = React.useMemo(() => {
         const contactId = state.conversation?._msdyn_customer_value ?? null;
@@ -328,6 +335,7 @@ export const App: React.FC<IAppProps> = ({ context, entityId }) => {
                                 keywords={state.conversation?.msdyn_urcustomersentimentkeywords ?? null}
                                 conversation={state.conversation}
                                 webAPI={context.webAPI}
+                                contextVariableNames={contextVariableNames}
                             />
                         </div>
                         {isVoice && (

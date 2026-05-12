@@ -6,6 +6,7 @@ import { TagsPanel } from './TagsPanel';
 import { JourneyPanel } from './JourneyPanel';
 import { CallMetrics } from './CallMetrics';
 import { InsightsDashboard } from './InsightsDashboard';
+import { ContextVariablesPanel } from './ContextVariablesPanel';
 import { useStrings } from '../i18n/StringsContext';
 
 export type SidebarMode = 'default' | 'journey-expanded' | 'insights';
@@ -18,10 +19,11 @@ interface ISidebarProps {
     keywords: string | null;
     conversation: IConversation | null;
     webAPI: ComponentFramework.WebApi;
+    contextVariableNames: string[];
 }
 
 export const Sidebar: React.FC<ISidebarProps> = ({
-    insight, sessions, renderMode, insightsJson, keywords, conversation, webAPI
+    insight, sessions, renderMode, insightsJson, keywords, conversation, webAPI, contextVariableNames
 }) => {
     const strings = useStrings();
     const isVoice = renderMode === 'voice' || renderMode === 'voicecallback';
@@ -112,8 +114,9 @@ export const Sidebar: React.FC<ISidebarProps> = ({
     const hasMetrics = isVoice && !!(insight);
     const hasTags = !!(keywords);
     const hasJourney = sessions.length > 0;
+    const hasContextVars = contextVariableNames.length > 0 && !!conversation?.activityid;
 
-    if (!hasCopilot && !hasMetrics && !hasTags && !hasJourney && !conversationId) return null;
+    if (!hasCopilot && !hasMetrics && !hasTags && !hasJourney && !hasContextVars && !conversationId) return null;
 
     if (mode === 'insights') {
         return (
@@ -156,8 +159,15 @@ export const Sidebar: React.FC<ISidebarProps> = ({
                     onCollapse={handleJourneyCollapse}
                 />
             )}
+            {hasContextVars && conversation && (
+                <ContextVariablesPanel
+                    webAPI={webAPI}
+                    conversationId={conversation.activityid}
+                    variableNames={contextVariableNames}
+                />
+            )}
             {conversationId && (
-                <div className="sidebar-section journey-conversation-id">
+                <div className="conv-id-section">
                     <div className="journey-conversation-id__label">{strings.labelConversationId}</div>
                     <div className="journey-conversation-id__row">
                         <code className="journey-conversation-id__value" title={conversationId}>{conversationId}</code>

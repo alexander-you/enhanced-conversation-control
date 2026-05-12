@@ -166,6 +166,11 @@ export interface ISessionParticipant {
     _msdyn_cdsqueueid_value: string | null;
 }
 
+export interface IContextVariable {
+    msdyn_name: string;
+    msdyn_value: string | null;
+}
+
 export interface IControlState {
     loading: boolean;
     error: string | null;

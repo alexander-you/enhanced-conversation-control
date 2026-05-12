@@ -94,6 +94,10 @@ export interface IStrings {
     labelCopied: string;
     labelOpenContact: string;
     labelOpenCase: string;
+    labelContextVariables: string;
+    labelContextRefresh: string;
+    labelContextRetry: string;
+    labelContextNoData: string;
 
     // Insights Dashboard labels (Phase 3)
     labelInsights: string;
@@ -202,6 +206,10 @@ export const DEFAULT_STRINGS: IStrings = {
     labelCopied: 'Copied',
     labelOpenContact: 'Open contact',
     labelOpenCase: 'Open case',
+    labelContextVariables: 'Context Variables',
+    labelContextRefresh: 'Refresh',
+    labelContextRetry: 'Retry',
+    labelContextNoData: 'No context variables found.',
 
     // Insights Dashboard labels (Phase 3)
     labelInsights: 'Insights',
@@ -315,7 +323,11 @@ export function createStrings(resources: ComponentFramework.Resources): IStrings
         labelCopied:                    s('Label_Copied', d.labelCopied),
         labelOpenContact:               s('Label_OpenContact', d.labelOpenContact),
         labelOpenCase:                  s('Label_OpenCase', d.labelOpenCase),
-        labelInsights:                  s('Label_Insights', d.labelInsights),
+        labelContextVariables:          s('Label_ContextVariables', d.labelContextVariables),
+        labelContextRefresh:            s('Label_ContextRefresh', d.labelContextRefresh),
+        labelContextRetry:              s('Label_ContextRetry', d.labelContextRetry),
+        labelContextNoData:             s('Label_ContextNoData', d.labelContextNoData),
+        labelInsights:s('Label_Insights', d.labelInsights),
         labelConversationInsights:      s('Label_ConversationInsights', d.labelConversationInsights),
         labelInsightsTiming:            s('Label_InsightsTiming', d.labelInsightsTiming),
         labelInsightsRouting:           s('Label_InsightsRouting', d.labelInsightsRouting),

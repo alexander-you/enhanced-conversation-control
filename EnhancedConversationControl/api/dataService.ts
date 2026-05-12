@@ -1,6 +1,6 @@
 import {
     IConversation, ITranscript, ISession, ISessionParticipant, IInsight, IRecording,
-    IInsightsJson, IMessage, ITranscriptMessage, SenderType
+    IInsightsJson, IMessage, ITranscriptMessage, SenderType, IContextVariable
 } from '../types';
 
 // ─── ACS Voice Transcript Types ──────────────────────────────────────────────
@@ -467,4 +467,31 @@ export async function loadRecording(
         `&$top=1`
     );
     return result.entities.length > 0 ? (result.entities[0] as unknown as IRecording) : null;
+}
+
+export async function loadContextVariables(
+    webAPI: ComponentFramework.WebApi,
+    conversationId: string,
+    variableNames: string[]
+): Promise<IContextVariable[]> {
+    const nameFilters = variableNames
+        .map(n => `msdyn_name eq '${n.replace(/'/g, "''")}'`)
+        .join(' or ');
+    const filter = `_msdyn_ocliveworkitemid_value eq ${conversationId}`
+        + (nameFilters ? ` and (${nameFilters})` : '');
+
+    try {
+        const result = await webAPI.retrieveMultipleRecords(
+            'msdyn_ocliveworkitemcontextitemelastic',
+            `?$filter=${filter}&$select=msdyn_name,msdyn_value`
+        );
+        return result.entities as unknown as IContextVariable[];
+    } catch {
+        console.log('[ECC] Elastic table query failed — falling back to standard table.');
+        const result = await webAPI.retrieveMultipleRecords(
+            'msdyn_ocliveworkitemcontextitem',
+            `?$filter=${filter}&$select=msdyn_name,msdyn_value`
+        );
+        return result.entities as unknown as IContextVariable[];
+    }
 }

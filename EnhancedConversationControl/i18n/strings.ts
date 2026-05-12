@@ -89,6 +89,9 @@ export interface IStrings {
     labelQueueWait: string;
     labelConsultJoined: string;
     labelConsultTransferred: string;
+    labelConversationId: string;
+    labelCopy: string;
+    labelCopied: string;
 
     // Insights Dashboard labels (Phase 3)
     labelInsights: string;
@@ -192,6 +195,9 @@ export const DEFAULT_STRINGS: IStrings = {
     labelQueueWait: 'Queue wait:',
     labelConsultJoined: 'Consult:',
     labelConsultTransferred: '→ Transferred to',
+    labelConversationId: 'Conversation ID (GUID)',
+    labelCopy: 'Copy',
+    labelCopied: 'Copied',
 
     // Insights Dashboard labels (Phase 3)
     labelInsights: 'Insights',
@@ -300,6 +306,9 @@ export function createStrings(resources: ComponentFramework.Resources): IStrings
         labelQueueWait:                 s('Label_QueueWait', d.labelQueueWait),
         labelConsultJoined:             s('Label_ConsultJoined', d.labelConsultJoined),
         labelConsultTransferred:        s('Label_ConsultTransferred', d.labelConsultTransferred),
+        labelConversationId:            s('Label_ConversationId', d.labelConversationId),
+        labelCopy:                      s('Label_Copy', d.labelCopy),
+        labelCopied:                    s('Label_Copied', d.labelCopied),
         labelInsights:                  s('Label_Insights', d.labelInsights),
         labelConversationInsights:      s('Label_ConversationInsights', d.labelConversationInsights),
         labelInsightsTiming:            s('Label_InsightsTiming', d.labelInsightsTiming),

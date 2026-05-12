@@ -747,6 +747,64 @@
     flex: 1;
 }
 
+.alex-ecc .journey-conversation-id {
+    margin-top: 14px;
+    padding-top: 10px;
+    border-top: 1px dashed var(--border);
+}
+
+.alex-ecc .journey-conversation-id__label {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--txt-mute);
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    margin-bottom: 6px;
+}
+
+.alex-ecc .journey-conversation-id__row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.alex-ecc .journey-conversation-id__value {
+    flex: 1;
+    min-width: 0;
+    font-family: Consolas, 'Courier New', monospace;
+    font-size: 11px;
+    color: var(--txt-sec);
+    background: var(--smoke);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 6px 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.alex-ecc .journey-copy-btn {
+    border: 1px solid var(--border);
+    background: var(--white);
+    color: #6366f1;
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 10px;
+    font-weight: 700;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.alex-ecc .journey-copy-btn:hover {
+    background: var(--azure-soft);
+    border-color: #6366f1;
+}
+
+.alex-ecc .journey-copy-btn:focus-visible {
+    outline: 2px solid #6366f1;
+    outline-offset: 2px;
+}
+
 /* Ghost button active state (when expanded) */
 .alex-ecc .ghost-btn--active {
     background: var(--azure-soft);

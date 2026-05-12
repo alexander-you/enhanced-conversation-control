@@ -199,6 +199,15 @@
   <data name="Label_ConsultTransferred" xml:space="preserve">
     <value>→ Transferred to</value>
   </data>
+  <data name="Label_ConversationId" xml:space="preserve">
+    <value>Conversation ID (GUID)</value>
+  </data>
+  <data name="Label_Copy" xml:space="preserve">
+    <value>Copy</value>
+  </data>
+  <data name="Label_Copied" xml:space="preserve">
+    <value>Copied</value>
+  </data>
 
   <!-- ==================== Call metrics ====================-->
   <data name="Label_CallMetrics" xml:space="preserve">

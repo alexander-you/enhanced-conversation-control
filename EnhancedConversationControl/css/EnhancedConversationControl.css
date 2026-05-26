@@ -250,8 +250,10 @@
 
 .alex-ecc .transcript-header-actions {
     display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
     align-items: center;
-    gap: 12px;
+    gap: 8px;
 }
 
 /* Chat flow */
@@ -1142,6 +1144,8 @@
     border: none;
     padding: 0;
     text-decoration: none;
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
 .alex-ecc .export-btn:hover {
@@ -1241,7 +1245,8 @@
     background: transparent;
     font-size: 12px;
     color: var(--txt-main);
-    width: 160px;
+    width: 130px;
+    min-width: 60px;
     outline: none;
     font-family: inherit;
 }

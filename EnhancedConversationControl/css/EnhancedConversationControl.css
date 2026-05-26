@@ -248,6 +248,12 @@
     letter-spacing: 1px;
 }
 
+.alex-ecc .transcript-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
 /* Chat flow */
 .alex-ecc .chat-flow {
     flex: 1;

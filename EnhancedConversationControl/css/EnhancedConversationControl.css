@@ -279,6 +279,36 @@
     border-bottom-right-radius: 4px;
 }
 
+/* --- Multi-agent color variants (by agentId order of appearance) --- */
+.alex-ecc .message-group.agent.agent-0 .bubble { background: #F0F4FF; }
+.alex-ecc .message-group.agent.agent-1 .bubble { background: #EDE9FE; }
+.alex-ecc .message-group.agent.agent-2 .bubble { background: #ECFDF5; }
+.alex-ecc .message-group.agent.agent-3 .bubble { background: #FFF7ED; }
+
+.alex-ecc .message-group.agent.agent-0 .msg-info { color: var(--azure); }
+.alex-ecc .message-group.agent.agent-1 .msg-info { color: var(--purple); }
+.alex-ecc .message-group.agent.agent-2 .msg-info { color: var(--emerald); }
+.alex-ecc .message-group.agent.agent-3 .msg-info { color: var(--amber); }
+
+/* --- Private / internal consult messages --- */
+.alex-ecc .message-group--private {
+    opacity: 0.92;
+}
+.alex-ecc .message-group--private .bubble {
+    border: 1.5px dashed var(--purple);
+    background: var(--purple-soft);
+}
+.alex-ecc .private-badge {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    background: var(--purple-soft);
+    color: var(--purple);
+    padding: 1px 6px;
+    border-radius: 4px;
+}
+
 .alex-ecc .event-divider {
     align-self: center;
     background: #EDF2F7;
@@ -291,6 +321,20 @@
     gap: 8px;
     margin: 10px 0;
     text-align: center;
+}
+.alex-ecc .event-divider--transfer {
+    background: var(--amber-soft);
+    color: #92400E;
+    border: 1px solid #FDE68A;
+}
+.alex-ecc .event-divider--consult {
+    background: var(--purple-soft);
+    color: #5B21B6;
+    border: 1px solid #DDD6FE;
+}
+.alex-ecc .event-divider-icon {
+    flex-shrink: 0;
+    font-size: 13px;
 }
 
 /* Empty/unavailable state */

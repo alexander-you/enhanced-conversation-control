@@ -241,6 +241,18 @@ export const ChatTranscript: React.FC<IChatTranscriptProps> = ({ messages, searc
     const term = searchTerm?.trim() ?? '';
     const userScrolledRef = React.useRef(false);
 
+    // Build a stable agent-index map: order of first appearance → agent-0, agent-1, …
+    const agentIndexMap = React.useMemo(() => {
+        const map = new Map<string, number>();
+        let idx = 0;
+        for (const m of messages) {
+            if (m.agentId && !map.has(m.agentId)) {
+                map.set(m.agentId, idx++);
+            }
+        }
+        return map;
+    }, [messages]);
+
     // Detect manual scroll — pauses auto-scroll until user scrolls near bottom again
     const handleScroll = React.useCallback(() => {
         const el = flowRef.current;
@@ -348,8 +360,19 @@ export const ChatTranscript: React.FC<IChatTranscriptProps> = ({ messages, searc
             >
                 {messages.map((msg, i) => {
                     if (msg.sender === 'system') {
+                        // Determine divider type from content
+                        const lc = msg.content.toLowerCase();
+                        const isTransferEvent = lc.includes('transfer');
+                        const isConsultEvent = lc.includes('consult');
+                        const dividerType = isTransferEvent ? 'transfer' : isConsultEvent ? 'consult' : '';
                         return (
-                            <div key={msg.id || i} className="event-divider" role="separator">
+                            <div
+                                key={msg.id || i}
+                                className={`event-divider${dividerType ? ` event-divider--${dividerType}` : ''}`}
+                                role="separator"
+                            >
+                                {dividerType === 'transfer' && <span className="event-divider-icon" aria-hidden="true">⟶</span>}
+                                {dividerType === 'consult' && <span className="event-divider-icon" aria-hidden="true">💬</span>}
                                 {msg.content}
                             </div>
                         );
@@ -357,6 +380,9 @@ export const ChatTranscript: React.FC<IChatTranscriptProps> = ({ messages, searc
 
                     const isAgent = msg.sender === 'agent' || msg.sender === 'bot';
                     const groupClass = isAgent ? 'agent' : 'customer';
+                    const agentIdx = msg.agentId ? agentIndexMap.get(msg.agentId) ?? 0 : 0;
+                    const agentColorClass = isAgent ? ` agent-${agentIdx % 4}` : '';
+                    const privateClass = msg.isPrivate ? ' message-group--private' : '';
                     const isActive = i === activeIndex;
 
                     const isHtml = msg.contentType === 'text/html' ||
@@ -387,11 +413,14 @@ export const ChatTranscript: React.FC<IChatTranscriptProps> = ({ messages, searc
                         <div
                             key={msg.id || i}
                             ref={el => { rowRefs.current[i] = el; }}
-                            className={`message-group ${groupClass}`}
+                            className={`message-group ${groupClass}${agentColorClass}${privateClass}`}
                             role="article"
                         >
                             <div className="msg-info">
                                 {msg.senderName && <span>{msg.senderName}</span>}
+                                {msg.isPrivate && (
+                                    <span className="private-badge">{strings.labelPrivateConsult}</span>
+                                )}
                                 <span>{formatTime(msg.created)}</span>
                             </div>
                             {/* dir="auto" lets the browser detect per-bubble text direction */}
@@ -399,7 +428,7 @@ export const ChatTranscript: React.FC<IChatTranscriptProps> = ({ messages, searc
                                 className={`bubble${isHtml && matchesSearch ? ' bubble-match' : ''}${isActive ? ' bubble--active' : ''}`}
                                 dir="auto"
                                 dangerouslySetInnerHTML={{ __html }}
-                                aria-label={`${msg.senderName || msg.sender} ${formatTime(msg.created)}`}
+                                aria-label={`${msg.senderName || msg.sender}${msg.isPrivate ? ` (${strings.labelPrivateConsult})` : ''} ${formatTime(msg.created)}`}
                             />
                         </div>
                     );

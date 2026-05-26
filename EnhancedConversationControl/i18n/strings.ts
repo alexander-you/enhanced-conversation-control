@@ -89,6 +89,15 @@ export interface IStrings {
     labelQueueWait: string;
     labelConsultJoined: string;
     labelConsultTransferred: string;
+    labelConversationId: string;
+    labelCopy: string;
+    labelCopied: string;
+    labelOpenContact: string;
+    labelOpenCase: string;
+    labelContextVariables: string;
+    labelContextRefresh: string;
+    labelContextRetry: string;
+    labelContextNoData: string;
 
     // Chat bubble — multi-agent & consult labels
     labelPrivateConsult: string;
@@ -197,6 +206,15 @@ export const DEFAULT_STRINGS: IStrings = {
     labelQueueWait: 'Queue wait:',
     labelConsultJoined: 'Consult:',
     labelConsultTransferred: '→ Transferred to',
+    labelConversationId: 'Conversation ID (GUID)',
+    labelCopy: 'Copy',
+    labelCopied: 'Copied',
+    labelOpenContact: 'Open contact',
+    labelOpenCase: 'Open case',
+    labelContextVariables: 'Context Variables',
+    labelContextRefresh: 'Refresh',
+    labelContextRetry: 'Retry',
+    labelContextNoData: 'No context variables found.',
 
     // Chat bubble — multi-agent & consult labels
     labelPrivateConsult: 'Internal',
@@ -313,6 +331,15 @@ export function createStrings(resources: ComponentFramework.Resources): IStrings
         labelPrivateConsult:            s('Label_PrivateConsult', d.labelPrivateConsult),
         labelTransferDivider:           s('Label_TransferDivider', d.labelTransferDivider),
         labelConsultDivider:            s('Label_ConsultDivider', d.labelConsultDivider),
+        labelConversationId:            s('Label_ConversationId', d.labelConversationId),
+        labelCopy:                      s('Label_Copy', d.labelCopy),
+        labelCopied:                    s('Label_Copied', d.labelCopied),
+        labelOpenContact:               s('Label_OpenContact', d.labelOpenContact),
+        labelOpenCase:                  s('Label_OpenCase', d.labelOpenCase),
+        labelContextVariables:          s('Label_ContextVariables', d.labelContextVariables),
+        labelContextRefresh:            s('Label_ContextRefresh', d.labelContextRefresh),
+        labelContextRetry:              s('Label_ContextRetry', d.labelContextRetry),
+        labelContextNoData:             s('Label_ContextNoData', d.labelContextNoData),
         labelInsights:                  s('Label_Insights', d.labelInsights),
         labelConversationInsights:      s('Label_ConversationInsights', d.labelConversationInsights),
         labelInsightsTiming:            s('Label_InsightsTiming', d.labelInsightsTiming),

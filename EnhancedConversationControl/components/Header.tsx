@@ -5,6 +5,8 @@ import { useStrings } from '../i18n/StringsContext';
 interface IHeaderProps {
     conversation: IConversation | null;
     renderMode: RenderMode;
+    onContactClick?: () => void;
+    onCaseClick?: () => void;
 }
 
 function getInitials(displayName: string | null): string {
@@ -52,7 +54,7 @@ function formatStartTime(isoString: string | null, labelToday: string): string {
     }
 }
 
-export const Header: React.FC<IHeaderProps> = ({ conversation, renderMode }) => {
+export const Header: React.FC<IHeaderProps> = ({ conversation, renderMode, onContactClick, onCaseClick }) => {
     const strings = useStrings();
     if (!conversation) return null;
 
@@ -70,6 +72,8 @@ export const Header: React.FC<IHeaderProps> = ({ conversation, renderMode }) => 
     if (regardingName) subLineParts.push(regardingName);
     if (startTimeStr) subLineParts.push(startTimeStr);
 
+    const customerDisplay = customerName ?? conversation.subject ?? strings.labelUnknownCustomer;
+
     return (
         <div className="pcf-header">
             <div className="user-profile">
@@ -77,10 +81,35 @@ export const Header: React.FC<IHeaderProps> = ({ conversation, renderMode }) => 
                     {initials}
                 </div>
                 <div className="user-details">
-                    <h2>{customerName ?? conversation.subject ?? strings.labelUnknownCustomer}</h2>
+                    {onContactClick ? (
+                        <button
+                            type="button"
+                            className="header-link-btn"
+                            onClick={onContactClick}
+                            title={strings.labelOpenContact}
+                        >
+                            <h2>{customerDisplay}</h2>
+                        </button>
+                    ) : (
+                        <h2>{customerDisplay}</h2>
+                    )}
                     <p>
                         <span className={`health-dot ${isOpen ? 'open' : 'closed'}`} aria-hidden="true" />
-                        {subLineParts.join(' · ')}
+                        {regardingName && onCaseClick ? (
+                            <>
+                                <button
+                                    type="button"
+                                    className="header-link-btn header-link-btn--inline"
+                                    onClick={onCaseClick}
+                                    title={strings.labelOpenCase}
+                                >
+                                    {regardingName}
+                                </button>
+                                {startTimeStr && ` · ${startTimeStr}`}
+                            </>
+                        ) : (
+                            subLineParts.join(' · ')
+                        )}
                     </p>
                 </div>
             </div>

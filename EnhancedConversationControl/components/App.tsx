@@ -194,6 +194,49 @@ export const App: React.FC<IAppProps> = ({ context, entityId }) => {
     const isVoice = state.renderMode === 'voice' || state.renderMode === 'voicecallback';
     const strings = React.useMemo(() => createStrings(context.resources), [context.resources]);
 
+    // ── New settings: open Contact / Case full-screen vs. dialog ──────────
+    const openContactFullScreen = context.parameters.opencontactfullscreen?.raw ?? false;
+    const openCaseFullScreen    = context.parameters.opencasefullscreen?.raw ?? false;
+
+    // ── Context variable names (JSON array from manifest property) ──────────
+    const contextVariableNames = React.useMemo<string[]>(() => {
+        const raw = context.parameters.contextVariableNames?.raw ?? '';
+        if (!raw) return [];
+        try { return JSON.parse(raw) as string[]; } catch { return []; }
+    }, [context.parameters.contextVariableNames?.raw]);
+
+    // Opens a D365 record:
+    //   fullScreen=false → modal dialog (target: 2)
+    //   fullScreen=true  → same-window inline navigation (target: 1)
+    const openRecord = React.useCallback((entityName: string, entityId: string, fullScreen: boolean) => {
+        interface XrmNav { Navigation?: { navigateTo: (input: object, options: object) => Promise<void> } }
+        const xrm = (window as unknown as { Xrm?: XrmNav }).Xrm;
+        if (xrm?.Navigation?.navigateTo) {
+            void xrm.Navigation.navigateTo(
+                { pageType: 'entityrecord', entityName, entityId },
+                { target: fullScreen ? 1 : 2 }
+            );
+        } else {
+            // Fallback if Xrm is unavailable (e.g. test harness)
+            void context.navigation.openForm({ entityName, entityId, openInNewWindow: false });
+        }
+    }, [context.navigation]);
+
+    // ── Navigation callbacks for Header ─────────────────────────────────────
+    const onContactClick = React.useMemo(() => {
+        const contactId = state.conversation?._msdyn_customer_value ?? null;
+        const entityType = state.conversation?.['_msdyn_customer_value@Microsoft.Dynamics.CRM.lookuplogicalname'] ?? 'contact';
+        if (!contactId) return undefined;
+        return () => openRecord(entityType, contactId, openContactFullScreen);
+    }, [state.conversation, openContactFullScreen, openRecord]);
+
+    const onCaseClick = React.useMemo(() => {
+        const caseId = state.conversation?._regardingobjectid_value ?? null;
+        const entityType = state.conversation?.['_regardingobjectid_value@Microsoft.Dynamics.CRM.lookuplogicalname'] ?? 'incident';
+        if (!caseId) return undefined;
+        return () => openRecord(entityType, caseId, openCaseFullScreen);
+    }, [state.conversation, openCaseFullScreen, openRecord]);
+
     // Search state
     const [searchTerm, setSearchTerm] = React.useState('');
     const [searchMatchCount, setSearchMatchCount] = React.useState<{ count: number; total: number } | null>(null);
@@ -232,7 +275,7 @@ export const App: React.FC<IAppProps> = ({ context, entityId }) => {
                 className={rootClass}
                 dir={isRtl ? 'rtl' : 'ltr'}
                 style={containerStyle}
-                data-version="1.5.0"
+                data-version="1.7.2"
                 role={state.error ? 'alert' : undefined}
             >
                 {state.loading ? (
@@ -241,7 +284,12 @@ export const App: React.FC<IAppProps> = ({ context, entityId }) => {
                     <p>⚠️ {state.error}</p>
                 ) : (
                     <>
-                        <Header conversation={state.conversation} renderMode={state.renderMode} />
+                        <Header
+                            conversation={state.conversation}
+                            renderMode={state.renderMode}
+                            onContactClick={onContactClick}
+                            onCaseClick={onCaseClick}
+                        />
                         <div className="content-grid">
                             <div className="transcript">
                                 <div className="transcript-header">
@@ -296,6 +344,7 @@ export const App: React.FC<IAppProps> = ({ context, entityId }) => {
                                 keywords={state.conversation?.msdyn_urcustomersentimentkeywords ?? null}
                                 conversation={state.conversation}
                                 webAPI={context.webAPI}
+                                contextVariableNames={contextVariableNames}
                             />
                         </div>
                         {isVoice && (

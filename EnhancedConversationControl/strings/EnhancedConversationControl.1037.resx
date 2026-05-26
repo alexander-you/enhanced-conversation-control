@@ -47,6 +47,18 @@
   <data name="PCF_Property_Desc" xml:space="preserve">
     <value>שדה עוגן לבקר שיחה מתקדם</value>
   </data>
+  <data name="PCF_OpenContactFullScreen_Display" xml:space="preserve">
+    <value>פתח איש קשר במסך מלא</value>
+  </data>
+  <data name="PCF_OpenContactFullScreen_Desc" xml:space="preserve">
+    <value>כאשר מופעל, לחיצה על שם איש הקשר תפתח את הטופס בלשונית חדשה במקום בחלון דיאלוג</value>
+  </data>
+  <data name="PCF_OpenCaseFullScreen_Display" xml:space="preserve">
+    <value>פתח תיק במסך מלא</value>
+  </data>
+  <data name="PCF_OpenCaseFullScreen_Desc" xml:space="preserve">
+    <value>כאשר מופעל, לחיצה על שם התיק תפתח את הטופס בלשונית חדשה במקום בחלון דיאלוג</value>
+  </data>
 
   <!-- ==================== Channel labels ==================== -->
   <data name="Label_LiveChat" xml:space="preserve">
@@ -198,6 +210,21 @@
   </data>
   <data name="Label_ConsultTransferred" xml:space="preserve">
     <value>← הועבר ל</value>
+  </data>
+  <data name="Label_ConversationId" xml:space="preserve">
+    <value>מזהה שיחה (GUID)</value>
+  </data>
+  <data name="Label_Copy" xml:space="preserve">
+    <value>העתק</value>
+  </data>
+  <data name="Label_Copied" xml:space="preserve">
+    <value>הועתק</value>
+  </data>
+  <data name="Label_OpenContact" xml:space="preserve">
+    <value>פתח איש קשר</value>
+  </data>
+  <data name="Label_OpenCase" xml:space="preserve">
+    <value>פתח תיק</value>
   </data>
 
   <!-- ==================== Chat bubbles — multi-agent & consult ==================== -->
@@ -359,4 +386,24 @@
     <value>החלפות שיחה</value>
   </data>
 
+
+  <!-- ==================== Context Variables ==================== -->
+  <data name="PCF_ContextVarNames_Display" xml:space="preserve">
+    <value>שמות משתני הקשר (JSON)</value>
+  </data>
+  <data name="PCF_ContextVarNames_Desc" xml:space="preserve">
+    <value>מערך JSON של שמות משתני הקשר לשליפה, לדוגמה ["Email","Name"]</value>
+  </data>
+  <data name="Label_ContextVariables" xml:space="preserve">
+    <value>משתני הקשר</value>
+  </data>
+  <data name="Label_ContextRefresh" xml:space="preserve">
+    <value>רענן</value>
+  </data>
+  <data name="Label_ContextRetry" xml:space="preserve">
+    <value>נסה שוב</value>
+  </data>
+  <data name="Label_ContextNoData" xml:space="preserve">
+    <value>לא נמצאו משתני הקשר.</value>
+  </data>
 </root>

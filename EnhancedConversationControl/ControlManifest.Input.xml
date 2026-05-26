@@ -2,7 +2,7 @@
 <manifest>
   <control namespace="alex"
            constructor="EnhancedConversationControl"
-           version="1.7.2"
+           version="1.7.3"
            display-name-key="PCF_EnhancedConversationControl_Display"
            description-key="PCF_EnhancedConversationControl_Desc"
            control-type="virtual">

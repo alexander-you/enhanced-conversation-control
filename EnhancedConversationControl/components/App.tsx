@@ -8,6 +8,7 @@ import {
 } from '../api/dataService';
 import { createStrings } from '../i18n/strings';
 import { StringsProvider } from '../i18n/StringsContext';
+import { downloadTranscriptAsHtml } from '../api/transcriptExport';
 import { Header } from './Header';
 import { ChatTranscript } from './ChatTranscript';
 import { VoiceTranscript } from './VoiceTranscript';
@@ -237,7 +238,7 @@ export const App: React.FC<IAppProps> = ({ context, entityId }) => {
         return () => openRecord(entityType, caseId, openCaseFullScreen);
     }, [state.conversation, openCaseFullScreen, openRecord]);
 
-    // Search state
+
     const [searchTerm, setSearchTerm] = React.useState('');
     const [searchMatchCount, setSearchMatchCount] = React.useState<{ count: number; total: number } | null>(null);
 
@@ -275,7 +276,7 @@ export const App: React.FC<IAppProps> = ({ context, entityId }) => {
                 className={rootClass}
                 dir={isRtl ? 'rtl' : 'ltr'}
                 style={containerStyle}
-                data-version="1.7.2"
+                data-version="1.7.3"
                 role={state.error ? 'alert' : undefined}
             >
                 {state.loading ? (
@@ -294,7 +295,25 @@ export const App: React.FC<IAppProps> = ({ context, entityId }) => {
                             <div className="transcript">
                                 <div className="transcript-header">
                                     <h3>{isVoice ? strings.labelVoiceTranscript : strings.labelTranscript}</h3>
-                                    <div className="search-box">
+                                    <div className="transcript-header-actions">
+                                        {!isVoice && state.messages.length > 0 && (
+                                            <button
+                                                type="button"
+                                                className="export-btn"
+                                                onClick={() => downloadTranscriptAsHtml(
+                                                    state.messages,
+                                                    {
+                                                        subject: state.conversation?.subject ?? null,
+                                                        customerName: state.conversation?.['_msdyn_customer_value@OData.Community.Display.V1.FormattedValue'] ?? null,
+                                                        startedOn: state.conversation?.msdyn_startedon ?? null,
+                                                    }
+                                                )}
+                                                aria-label={strings.ariaDownloadTranscript}
+                                            >
+                                                📄 {strings.labelDownloadTranscript}
+                                            </button>
+                                        )}
+                                        <div className="search-box">
                                         <span className="search-icon" aria-hidden="true">🔍</span>
                                         <input
                                             type="search"
@@ -318,6 +337,7 @@ export const App: React.FC<IAppProps> = ({ context, entityId }) => {
                                                 aria-label="Clear search"
                                             >×</button>
                                         )}
+                                        </div>
                                     </div>
                                 </div>
                                 {isVoice

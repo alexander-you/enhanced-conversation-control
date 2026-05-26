@@ -90,6 +90,11 @@ export interface IStrings {
     labelConsultJoined: string;
     labelConsultTransferred: string;
 
+    // Chat bubble — multi-agent & consult labels
+    labelPrivateConsult: string;
+    labelTransferDivider: string;
+    labelConsultDivider: string;
+
     // Insights Dashboard labels (Phase 3)
     labelInsights: string;
     labelConversationInsights: string;
@@ -192,6 +197,11 @@ export const DEFAULT_STRINGS: IStrings = {
     labelQueueWait: 'Queue wait:',
     labelConsultJoined: 'Consult:',
     labelConsultTransferred: '→ Transferred to',
+
+    // Chat bubble — multi-agent & consult labels
+    labelPrivateConsult: 'Internal',
+    labelTransferDivider: 'Transfer',
+    labelConsultDivider: 'Consult',
 
     // Insights Dashboard labels (Phase 3)
     labelInsights: 'Insights',
@@ -300,6 +310,9 @@ export function createStrings(resources: ComponentFramework.Resources): IStrings
         labelQueueWait:                 s('Label_QueueWait', d.labelQueueWait),
         labelConsultJoined:             s('Label_ConsultJoined', d.labelConsultJoined),
         labelConsultTransferred:        s('Label_ConsultTransferred', d.labelConsultTransferred),
+        labelPrivateConsult:            s('Label_PrivateConsult', d.labelPrivateConsult),
+        labelTransferDivider:           s('Label_TransferDivider', d.labelTransferDivider),
+        labelConsultDivider:            s('Label_ConsultDivider', d.labelConsultDivider),
         labelInsights:                  s('Label_Insights', d.labelInsights),
         labelConversationInsights:      s('Label_ConversationInsights', d.labelConversationInsights),
         labelInsightsTiming:            s('Label_InsightsTiming', d.labelInsightsTiming),

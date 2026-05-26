@@ -71,6 +71,10 @@ export interface IMessage {
     /** ACS fragment start time in ms from recording start — stamped when ACS JSON is available.
      *  When present, use offsetMs/1000 as the sync position instead of wall-clock timestamps. */
     offsetMs?: number;
+    /** Stable agent GUID from `from.user.id` — used to assign per-agent visual distinction. */
+    agentId?: string;
+    /** True when the message is part of an internal consult (tags contain "private"). */
+    isPrivate?: boolean;
 }
 
 export interface ISession {

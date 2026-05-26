@@ -200,6 +200,17 @@
     <value>→ Transferred to</value>
   </data>
 
+  <!-- ==================== Chat bubbles — multi-agent & consult ==================== -->
+  <data name="Label_PrivateConsult" xml:space="preserve">
+    <value>Internal</value>
+  </data>
+  <data name="Label_TransferDivider" xml:space="preserve">
+    <value>Transfer</value>
+  </data>
+  <data name="Label_ConsultDivider" xml:space="preserve">
+    <value>Consult</value>
+  </data>
+
   <!-- ==================== Call metrics ====================-->
   <data name="Label_CallMetrics" xml:space="preserve">
     <value>Call Metrics</value>

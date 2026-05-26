@@ -263,17 +263,28 @@ export function parseVoiceTranscriptToMessages(text: string): IMessage[] | null 
 
 // ─── Helper functions ─────────────────────────────────────────────────────────
 
+/** Tags that mark a message as a transfer/consult system event (shown as dividers). */
+const SYSTEM_EVENT_TAGS = [
+    'transferinitiated', 'transferaccepted',
+    'consultinitiated', 'consultaccepted',
+    'agentleftconsultconversation', 'agentendedconsultconversation',
+] as const;
+
+function hasSystemEventTag(tags: string | undefined): boolean {
+    if (!tags) return false;
+    return SYSTEM_EVENT_TAGS.some(t => tags.includes(t));
+}
+
 function detectSender(msg: ITranscriptMessage, isVoice = false): SenderType {
     if (msg.isControlMessage) return 'system';
-    if (msg.from?.user) return 'agent';
+    // Transfer / consult system events from the "__customer__" pseudo-user
+    if (hasSystemEventTag(msg.tags)) return 'system';
+    if (msg.from?.user?.displayName === '__customer__' && msg.tags?.includes('system')) return 'system';
+    if (msg.from?.user && msg.from.user.displayName !== '__customer__') return 'agent';
     if (
         msg.from?.application?.displayName === 'Customer' ||
         msg.tags?.includes('FromCustomer')
     ) return 'customer';
-    if (
-        msg.from?.application?.displayName === '__customer__' &&
-        msg.tags?.includes('system')
-    ) return 'system';
     // In voice calls, non-customer participants are agents, not bots
     if (isVoice) return 'agent';
     return 'bot';
@@ -353,15 +364,21 @@ export async function loadChatMessages(
         if (!outer || outer.length === 0 || !outer[0].Content) return [];
         const rawMessages = JSON.parse(outer[0].Content) as ITranscriptMessage[];
         return rawMessages
-            .filter(m => !m.isControlMessage && !m.deleted)
             .filter(m => {
+                // Keep transfer/consult system events (they become styled dividers)
+                if (!m.isControlMessage && hasSystemEventTag(m.tags)) return true;
+                // Drop XML control messages (addmember, deletemember, etc.)
+                if (m.isControlMessage) return false;
+                if (m.deleted) return false;
                 // Drop bot/system event payloads (JSON objects with an EventName field)
                 const c = m.content.trim();
-                return !(c.startsWith('{') && c.includes('"EventName"'));
+                if (c.startsWith('{') && c.includes('"EventName"')) return false;
+                return true;
             })
             .sort((a, b) => new Date(a.created).getTime() - new Date(b.created).getTime())
             .map(m => {
                 const sender = detectSender(m, isVoice);
+                const tags = m.tags ?? '';
                 return {
                     id: m.id,
                     created: new Date(m.created),
@@ -369,6 +386,9 @@ export async function loadChatMessages(
                     senderName: getSenderName(m, sender),
                     content: m.content || '',
                     contentType: m.contentType ?? 'text',
+                    agentId: m.from?.user?.id && m.from.user.displayName !== '__customer__'
+                        ? m.from.user.id : undefined,
+                    isPrivate: tags.includes('private') && !hasSystemEventTag(tags),
                 };
             });
     } catch {

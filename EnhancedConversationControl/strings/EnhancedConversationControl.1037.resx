@@ -200,6 +200,17 @@
     <value>← הועבר ל</value>
   </data>
 
+  <!-- ==================== Chat bubbles — multi-agent & consult ==================== -->
+  <data name="Label_PrivateConsult" xml:space="preserve">
+    <value>פנימי</value>
+  </data>
+  <data name="Label_TransferDivider" xml:space="preserve">
+    <value>העברה</value>
+  </data>
+  <data name="Label_ConsultDivider" xml:space="preserve">
+    <value>ייעוץ</value>
+  </data>
+
   <!-- ==================== Call metrics ====================-->
   <data name="Label_CallMetrics" xml:space="preserve">
     <value>מדדי שיחה</value>

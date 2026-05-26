@@ -6,6 +6,8 @@ import { TagsPanel } from './TagsPanel';
 import { JourneyPanel } from './JourneyPanel';
 import { CallMetrics } from './CallMetrics';
 import { InsightsDashboard } from './InsightsDashboard';
+import { ContextVariablesPanel } from './ContextVariablesPanel';
+import { useStrings } from '../i18n/StringsContext';
 
 export type SidebarMode = 'default' | 'journey-expanded' | 'insights';
 
@@ -17,12 +19,52 @@ interface ISidebarProps {
     keywords: string | null;
     conversation: IConversation | null;
     webAPI: ComponentFramework.WebApi;
+    contextVariableNames: string[];
 }
 
 export const Sidebar: React.FC<ISidebarProps> = ({
-    insight, sessions, renderMode, insightsJson, keywords, conversation, webAPI
+    insight, sessions, renderMode, insightsJson, keywords, conversation, webAPI, contextVariableNames
 }) => {
+    const strings = useStrings();
     const isVoice = renderMode === 'voice' || renderMode === 'voicecallback';
+    const conversationId = conversation?.activityid ?? null;
+
+    // ── Copy-to-clipboard state for Conversation ID ─────────────────────────
+    const [copyStatus, setCopyStatus] = React.useState<'idle' | 'copied'>('idle');
+
+    const handleCopyConversationId = React.useCallback(async () => {
+        if (!conversationId) return;
+
+        const fallbackCopy = (): boolean => {
+            try {
+                const temp = document.createElement('textarea');
+                temp.value = conversationId;
+                temp.setAttribute('readonly', 'true');
+                temp.style.position = 'fixed';
+                temp.style.opacity = '0';
+                document.body.appendChild(temp);
+                temp.select();
+                const ok = document.execCommand('copy');
+                document.body.removeChild(temp);
+                return ok;
+            } catch {
+                return false;
+            }
+        };
+
+        try {
+            if (navigator.clipboard?.writeText) {
+                await navigator.clipboard.writeText(conversationId);
+            } else if (!fallbackCopy()) {
+                return;
+            }
+        } catch {
+            if (!fallbackCopy()) return;
+        }
+
+        setCopyStatus('copied');
+        window.setTimeout(() => setCopyStatus('idle'), 1500);
+    }, [conversationId]);
 
     // ── Sidebar mode state machine ──────────────────────────────────────────
     const [mode, setMode] = React.useState<SidebarMode>('default');
@@ -72,8 +114,9 @@ export const Sidebar: React.FC<ISidebarProps> = ({
     const hasMetrics = isVoice && !!(insight);
     const hasTags = !!(keywords);
     const hasJourney = sessions.length > 0;
+    const hasContextVars = contextVariableNames.length > 0 && !!conversation?.activityid;
 
-    if (!hasCopilot && !hasMetrics && !hasTags && !hasJourney) return null;
+    if (!hasCopilot && !hasMetrics && !hasTags && !hasJourney && !hasContextVars && !conversationId) return null;
 
     if (mode === 'insights') {
         return (
@@ -115,6 +158,29 @@ export const Sidebar: React.FC<ISidebarProps> = ({
                     onExpand={() => { void handleJourneyExpand(); }}
                     onCollapse={handleJourneyCollapse}
                 />
+            )}
+            {hasContextVars && conversation && (
+                <ContextVariablesPanel
+                    webAPI={webAPI}
+                    conversationId={conversation.activityid}
+                    variableNames={contextVariableNames}
+                />
+            )}
+            {conversationId && (
+                <div className="conv-id-section">
+                    <div className="journey-conversation-id__label">{strings.labelConversationId}</div>
+                    <div className="journey-conversation-id__row">
+                        <code className="journey-conversation-id__value" title={conversationId}>{conversationId}</code>
+                        <button
+                            type="button"
+                            className="journey-copy-btn"
+                            onClick={() => { void handleCopyConversationId(); }}
+                            aria-label={`${strings.labelCopy} ${strings.labelConversationId}`}
+                        >
+                            {copyStatus === 'copied' ? strings.labelCopied : strings.labelCopy}
+                        </button>
+                    </div>
+                </div>
             )}
         </aside>
     );

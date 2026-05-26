@@ -47,6 +47,18 @@
   <data name="PCF_Property_Desc" xml:space="preserve">
     <value>Binding anchor field for the Enhanced Conversation Control</value>
   </data>
+  <data name="PCF_OpenContactFullScreen_Display" xml:space="preserve">
+    <value>Open Contact in Full Screen</value>
+  </data>
+  <data name="PCF_OpenContactFullScreen_Desc" xml:space="preserve">
+    <value>When enabled, clicking the contact name opens the contact form in a new tab instead of a dialog window</value>
+  </data>
+  <data name="PCF_OpenCaseFullScreen_Display" xml:space="preserve">
+    <value>Open Case in Full Screen</value>
+  </data>
+  <data name="PCF_OpenCaseFullScreen_Desc" xml:space="preserve">
+    <value>When enabled, clicking the case name opens the case form in a new tab instead of a dialog window</value>
+  </data>
 
   <!-- ==================== Channel labels ==================== -->
   <data name="Label_LiveChat" xml:space="preserve">
@@ -198,6 +210,21 @@
   </data>
   <data name="Label_ConsultTransferred" xml:space="preserve">
     <value>→ Transferred to</value>
+  </data>
+  <data name="Label_ConversationId" xml:space="preserve">
+    <value>Conversation ID (GUID)</value>
+  </data>
+  <data name="Label_Copy" xml:space="preserve">
+    <value>Copy</value>
+  </data>
+  <data name="Label_Copied" xml:space="preserve">
+    <value>Copied</value>
+  </data>
+  <data name="Label_OpenContact" xml:space="preserve">
+    <value>Open contact</value>
+  </data>
+  <data name="Label_OpenCase" xml:space="preserve">
+    <value>Open case</value>
   </data>
 
   <!-- ==================== Chat bubbles — multi-agent & consult ==================== -->
@@ -359,4 +386,24 @@
     <value>Conv. Switches</value>
   </data>
 
+
+  <!-- ==================== Context Variables ==================== -->
+  <data name="PCF_ContextVarNames_Display" xml:space="preserve">
+    <value>Context Variable Names (JSON)</value>
+  </data>
+  <data name="PCF_ContextVarNames_Desc" xml:space="preserve">
+    <value>JSON array of context variable names to retrieve, e.g. ["Email","Name"]</value>
+  </data>
+  <data name="Label_ContextVariables" xml:space="preserve">
+    <value>Context Variables</value>
+  </data>
+  <data name="Label_ContextRefresh" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="Label_ContextRetry" xml:space="preserve">
+    <value>Retry</value>
+  </data>
+  <data name="Label_ContextNoData" xml:space="preserve">
+    <value>No context variables found.</value>
+  </data>
 </root>

@@ -112,6 +112,44 @@
     margin-bottom: 2px;
 }
 
+/* Clickable header button — wraps h2 or inline text; resets button chrome */
+.alex-ecc .header-link-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    text-align: start;
+    color: inherit;
+    display: block;
+    width: 100%;
+}
+
+.alex-ecc .header-link-btn:hover h2,
+.alex-ecc .header-link-btn:focus-visible h2 {
+    color: var(--azure);
+    text-decoration: underline;
+}
+
+.alex-ecc .header-link-btn:focus-visible {
+    outline: 2px solid var(--azure);
+    outline-offset: 2px;
+    border-radius: 3px;
+}
+
+/* Inline variant used inside the sub-line <p> */
+.alex-ecc .header-link-btn--inline {
+    display: inline;
+    width: auto;
+    font-size: 13px;
+    color: var(--txt-sec);
+}
+
+.alex-ecc .header-link-btn--inline:hover,
+.alex-ecc .header-link-btn--inline:focus-visible {
+    color: var(--azure);
+    text-decoration: underline;
+}
+
 .alex-ecc .user-details p {
     font-size: 13px;
     color: var(--txt-sec);
@@ -789,6 +827,64 @@
 /* Journey section expanded state — grows to fill available sidebar space */
 .alex-ecc .journey-section--expanded {
     flex: 1;
+}
+
+.alex-ecc .conv-id-section {
+    padding: 12px 24px 16px;
+    border-top: 1px dashed var(--border);
+    flex-shrink: 0;
+}
+
+.alex-ecc .journey-conversation-id__label {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--txt-mute);
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    margin-bottom: 6px;
+}
+
+.alex-ecc .journey-conversation-id__row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.alex-ecc .journey-conversation-id__value {
+    flex: 1;
+    min-width: 0;
+    font-family: Consolas, 'Courier New', monospace;
+    font-size: 11px;
+    color: var(--txt-sec);
+    background: var(--smoke);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 6px 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.alex-ecc .journey-copy-btn {
+    border: 1px solid var(--border);
+    background: var(--white);
+    color: #6366f1;
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 10px;
+    font-weight: 700;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.alex-ecc .journey-copy-btn:hover {
+    background: var(--azure-soft);
+    border-color: #6366f1;
+}
+
+.alex-ecc .journey-copy-btn:focus-visible {
+    outline: 2px solid #6366f1;
+    outline-offset: 2px;
 }
 
 /* Ghost button active state (when expanded) */
@@ -1594,4 +1690,149 @@
     .alex-ecc .participant-avatar { background: ButtonFace; color: ButtonText; }
     .alex-ecc .insights-overlay { background: Canvas; }
     .alex-ecc .insights-header { background: Canvas; border-bottom-color: ButtonText; }
+}
+
+/* ==================== Context Variables Panel ==================== */
+.alex-ecc .ctx-panel {
+    margin-top: 12px;
+    padding-top: 2px;
+}.alex-ecc .ctx-toggle {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    width: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px 4px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--txt-main);
+    transition: background 0.15s;
+}.alex-ecc .ctx-toggle:hover {
+    background: var(--bg-hover, rgba(0,0,0,0.04));
+}.alex-ecc .ctx-toggle-icon {
+    font-size: 10px;
+    color: var(--txt-mute);
+    width: 12px;
+    text-align: center;
+}.alex-ecc .ctx-toggle-label {
+    flex: 1;
+    text-align: start;
+}.alex-ecc .ctx-badge {
+    font-size: 10px;
+    font-weight: 700;
+    background: var(--purple-soft, #EDE9FE);
+    color: var(--purple, #7C3AED);
+    border-radius: 10px;
+    padding: 1px 7px;
+    min-width: 18px;
+    text-align: center;
+}.alex-ecc .ctx-refresh {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    color: var(--txt-mute);
+    padding: 2px 5px;
+    border-radius: 4px;
+    transition: color 0.15s, background 0.15s;
+}.alex-ecc .ctx-refresh:hover {
+    color: var(--purple, #7C3AED);
+    background: var(--purple-soft, #EDE9FE);
+}
+
+.alex-ecc .ctx-content {
+    padding: 8px 4px 4px;
+    animation: ctxSlide 0.2s ease-out;
+}
+
+@keyframes ctxSlide {
+    from { opacity: 0; transform: translateY(-4px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.alex-ecc .ctx-loading {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    color: var(--txt-mute);
+    padding: 8px 0;
+}
+
+.alex-ecc .ctx-spinner {
+    width: 14px;
+    height: 14px;
+    border: 2px solid var(--border);
+    border-top-color: var(--purple, #7C3AED);
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+}
+
+.alex-ecc .ctx-error {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    color: #DC2626;
+    padding: 6px 0;
+}
+
+.alex-ecc .ctx-retry {
+    background: none;
+    border: 1px solid #DC2626;
+    border-radius: 4px;
+    color: #DC2626;
+    font-size: 10px;
+    padding: 2px 8px;
+    cursor: pointer;
+}
+
+.alex-ecc .ctx-retry:hover {
+    background: #FEE2E2;
+}
+
+.alex-ecc .ctx-empty {
+    font-size: 11px;
+    color: var(--txt-mute);
+    padding: 6px 0;
+    font-style: italic;
+}
+
+.alex-ecc .ctx-list {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.alex-ecc .ctx-row {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    padding: 5px 6px;
+    border-radius: 4px;
+    transition: background 0.12s;
+}
+
+.alex-ecc .ctx-row:hover {
+    background: var(--bg-hover, rgba(0,0,0,0.03));
+}
+
+.alex-ecc .ctx-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--txt-mute);
+    min-width: 80px;
+    flex-shrink: 0;
+}
+
+.alex-ecc .ctx-value {
+    font-size: 12px;
+    color: var(--txt-main);
+    margin: 0;
+    word-break: break-word;
 }
